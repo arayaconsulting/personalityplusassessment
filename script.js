@@ -1,4 +1,4 @@
-// Data Pertanyaan (Sesuai dengan file Anda)
+// Data Pertanyaan (40 Pertanyaan Personality Plus)
 const quizQuestions = [
     {
         question: "1. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:",
@@ -362,7 +362,7 @@ const quizQuestions = [
     }
 ];
 
-// Peta (Mapping) untuk nama lengkap Personality Plus
+
 const personalityNames = {
     "Sanguine": "Populer Sanguine",
     "Choleric": "Kuat Choleric",
@@ -370,142 +370,82 @@ const personalityNames = {
     "Phlegmatic": "Damai Phlegmatic"
 };
 
-// Data Deskripsi Hasil
-const personalityDescriptions = {
-    "Sanguine": {
-        title: "Populer Sanguine",
-        description: "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud"
-    },
-    "Choleric": {
-        title: "Kuat Choleric",
-        description: "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud"
-    },
-    "Melancholic": {
-        title: "Sempurna Melancholic",
-        description: "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud"
-    },
-    "Phlegmatic": {
-        title: "Damai Phlegmatic",
-        description: "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud"
-    }
-};
-
-// Variabel Kontrol
 let currentQuestionIndex = 0;
-let userAnswers = {}; // Menyimpan jawaban pengguna
-let scores = {
-    "Sanguine": 0,
-    "Choleric": 0,
-    "Melancholic": 0,
-    "Phlegmatic": 0
-};
+let userName = ""; // VARIABEL UNTUK MENYIMPAN NAMA USER
+let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
 
-// Dapatkan Elemen HTML
 const introContainer = document.getElementById('intro-container');
 const quizContainer = document.getElementById('quiz-container');
 const resultContainer = document.getElementById('result-container');
+const startForm = document.getElementById('start-form'); 
+const userNameInput = document.getElementById('user-name');
 const startButton = document.getElementById('start-button');
 const restartButton = document.getElementById('restart-button');
 const questionText = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
-const resultTitle = document.getElementById('result-title');
-const resultDescription = document.getElementById('result-description');
-const prevButton = document.getElementById('prev-button');
 const nextButton = document.getElementById('next-button');
 const progressBar = document.getElementById('progress-bar');
+const resultTitle = document.getElementById('result-title');
+const resultDescription = document.getElementById('result-description');
 
-// Fungsi Utama
 function startQuiz() {
+    userName = userNameInput.value.trim(); // AMBIL NAMA USER
+    if (userName === "") {
+        alert("Mohon masukkan Nama Lengkap Anda sebelum memulai tes.");
+        return;
+    }
+
     introContainer.classList.add('hidden');
     quizContainer.classList.remove('hidden');
     currentQuestionIndex = 0;
-    userAnswers = {};
     scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
     showQuestion();
 }
 
 function showQuestion() {
     if (currentQuestionIndex < quizQuestions.length) {
-        const currentQuestion = quizQuestions[currentQuestionIndex];
-        questionText.textContent = `(${currentQuestionIndex + 1}/40) ${currentQuestion.question}`;
+        questionText.textContent = `(${currentQuestionIndex + 1}/40) Pilih satu yang PALING mewakili diri Anda:`;
         optionsContainer.innerHTML = '';
-        currentQuestion.options.forEach((option) => {
+        
+        quizQuestions[currentQuestionIndex].options.forEach((option) => {
             const button = document.createElement('button');
             button.textContent = option.text;
             button.classList.add('option-button');
-            if (userAnswers[currentQuestionIndex] === option.type) {
-                button.classList.add('selected'); // Menandai jawaban yang sudah dipilih
-            }
-            button.addEventListener('click', () => selectAnswer(option.type));
+            button.addEventListener('click', () => selectAnswer(option.type, button));
             optionsContainer.appendChild(button);
         });
 
-        // Tampilkan/sembunyikan tombol navigasi
-        prevButton.classList.toggle('hidden', currentQuestionIndex === 0);
-        nextButton.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Selesai' : 'Selanjutnya';
-        
-        // Perbarui progress bar
         const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
         progressBar.style.width = `${progress}%`;
-
+        
     } else {
-        // Ini tidak akan dipanggil karena kita menggunakan tombol "Selesai"
+        calculateAndShowResult();
     }
 }
 
-function selectAnswer(type) {
-    userAnswers[currentQuestionIndex] = type;
-    const buttons = optionsContainer.querySelectorAll('.option-button');
+function selectAnswer(type, button) {
+    // Logic untuk memilih satu jawaban
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    
+    // Hapus class 'selected' dari semua tombol di pertanyaan saat ini
+    const buttons = optionsContainer.querySelectorAll('button');
     buttons.forEach(btn => btn.classList.remove('selected'));
     
-    // Perbaikan: Mencari tombol berdasarkan teks yang mengandung jenis kepribadian
-    const selectedButton = Array.from(buttons).find(btn => quizQuestions[currentQuestionIndex].options.find(opt => opt.type === type).text.includes(btn.textContent));
-    if (selectedButton) {
-        selectedButton.classList.add('selected');
-    }
+    // Tambahkan class 'selected' pada tombol yang baru diklik
+    button.classList.add('selected');
+
+    // Simpan jawaban untuk perhitungan
+    currentQuestion.selectedType = type;
 }
 
-function calculateAndShowResult() {
-    for (const key in userAnswers) {
-        if (userAnswers.hasOwnProperty(key)) {
-            scores[userAnswers[key]]++;
-        }
-    }
-
-    let dominantType = '';
-    let maxScore = 0;
-    for (const type in scores) {
-        if (scores.hasOwnProperty(type) && scores[type] > maxScore) {
-            maxScore = scores[type];
-            dominantType = type;
-        }
-    }
-    
-    quizContainer.classList.add('hidden');
-    resultContainer.classList.remove('hidden');
-    const result = personalityDescriptions[dominantType];
-    resultTitle.textContent = result.title;
-    resultDescription.textContent = "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud";
-}
-
-function restartQuiz() {
-    resultContainer.classList.add('hidden');
-    introContainer.classList.remove('hidden');
-}
-
-// Event Listeners
-startButton.addEventListener('click', startQuiz);
-restartButton.addEventListener('click', restartQuiz);
-prevButton.addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        showQuestion();
-    }
-});
 nextButton.addEventListener('click', () => {
-    if (userAnswers[currentQuestionIndex]) {
-        if (currentQuestionIndex < quizQuestions.length - 1) {
-            currentQuestionIndex++;
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    if (currentQuestion.selectedType) {
+        // Tambahkan skor
+        scores[currentQuestion.selectedType]++;
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
             showQuestion();
         } else {
             calculateAndShowResult();
@@ -514,3 +454,52 @@ nextButton.addEventListener('click', () => {
         alert('Mohon pilih satu jawaban sebelum melanjutkan.');
     }
 });
+
+document.getElementById('prev-button').addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        // Hapus skor lama sebelum mundur
+        const previousQuestion = quizQuestions[currentQuestionIndex - 1];
+        if (previousQuestion.selectedType) {
+            scores[previousQuestion.selectedType]--;
+        }
+        
+        currentQuestionIndex--;
+        showQuestion();
+    }
+});
+
+
+function calculateAndShowResult() {
+    quizContainer.classList.add('hidden');
+    resultContainer.classList.remove('hidden');
+
+    let dominantType = '';
+    let maxScore = -1;
+    
+    for (const type in scores) {
+        if (scores.hasOwnProperty(type) && scores[type] > maxScore) {
+            maxScore = scores[type];
+            dominantType = type;
+        }
+    }
+    
+    // PERBAIKAN DI SINI: Tampilkan nama pengguna di Hasil
+    resultTitle.textContent = `Hasil Kepribadian ${userName}: ${personalityNames[dominantType]}`;
+    resultDescription.textContent = `Halo ${userName}, ini adalah tipe kepribadian dominan Anda. Untuk penjelasan lebih detail, akan dijelaskan dalam sesi bersama Mas Ali Mahfud.`;
+}
+
+function restartQuiz() {
+    resultContainer.classList.add('hidden');
+    introContainer.classList.remove('hidden');
+    currentQuestionIndex = 0;
+    scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
+    document.getElementById('start-form').reset(); // Reset form nama
+}
+
+// Event Listeners
+startForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    startQuiz();
+});
+
+restartButton.addEventListener('click', restartQuiz);
