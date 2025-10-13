@@ -124,3 +124,26 @@ button:hover {
     width: 48%;
     font-size: 14px;
 }
+/* Tambahkan gaya ini di bagian akhir style.css */
+
+#start-form {
+    display: flex;
+    flex-direction: column; /* Mengatur item dari atas ke bawah */
+    align-items: center;
+    gap: 15px; /* Jarak antar elemen */
+}
+
+#start-form input[type="text"] {
+    width: 100%; /* Membuat input nama lebar penuh */
+    max-width: 300px; /* Batasi lebar agar sesuai tombol */
+    padding: 15px; /* Menyamakan padding dengan tombol untuk konsistensi */
+    box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+    border: 1px solid #ddd;
+    border-radius: 50px; /* Membuat sudut membulat seperti tombol */
+    text-align: center;
+}
+
+#start-form #start-button {
+    width: 100%;
+    max-width: 300px; /* Menjaga lebar tombol tetap sama */
+}
