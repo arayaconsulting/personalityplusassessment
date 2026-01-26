@@ -46,57 +46,24 @@ const quizQuestions = [
     { question: "40. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "COMPROMISING - menghindari konflik", type: "Phlegmatic" }, { text: "CRITICAL - sering menilai negatif", type: "Melancholic" }, { text: "CRAFTY - menghalalkan segala cara", type: "Choleric" }, { text: "CHANGEABLE - perlu variasi agar tidak bosan", type: "Sanguine" }] }
 ];
 
-const personalityNames = {
-    "Sanguine": "Populer Sanguine",
-    "Choleric": "Kuat Choleric",
-    "Melancholic": "Sempurna Melancholic",
-    "Phlegmatic": "Damai Phlegmatic"
-};
+const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Choleric", "Melancholic": "Sempurna Melancholic", "Phlegmatic": "Damai Phlegmatic" };
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik Dasar:</b> Individu ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan persuasif secara alami.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Hebat dalam membangun hubungan dan memotivasi. Namun, sering kurang teratur, mudah kehilangan fokus, dan menghindari hal teknis.<br><br>
-               <b>Rekomendasi Karir:</b> Komunikasi, Marketing, Penjualan, atau Seni.<br><br>
-               <b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas.`,
-        right: `<div style="background: rgba(26,42,108,0.03); padding: 12px; border-left: 4px solid #c5a059;">
-                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
-                <b>Gaya Memimpin:</b> Demokratis dan inspiratif. Memimpin dengan energi.<br><br>
-                <b>Gaya Kerja:</b> Sangat baik sebagai garda depan atau bagian promosi.<br><br>
-                <b>Komunikasi:</b> Berikan apresiasi terbuka. Kritik secara personal & menyemangati.</div>`
+        left: `<b>KARAKTERISTIK DASAR:</b> Individu ekstrovert, optimis, dan penuh semangat. "Nyawa" dalam setiap pertemuan, menyukai interaksi sosial, dan komunikatif.<br><br><b>KEKUATAN & KELEMAHAN:</b> Hebat membangun hubungan dan memotivasi. Sering kurang teratur dalam administrasi, mudah hilang fokus, dan menghindari hal teknis.<br><br><b>KARIR:</b> Komunikasi, Marketing, Public Relations, Penjualan, Seni.<br><br><b>SARAN:</b> Disiplin waktu dan fokus selesaikan satu tugas hingga tuntas.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>BUSINESS INSIGHT:</b><br><b>Kepemimpinan:</b> Demokratis & inspiratif. Memimpin dengan energi.<br><br><b>Gaya Kerja:</b> Garda depan (frontliner) atau promosi.<br><br><b>Komunikasi:</b> Berikan apresiasi terbuka. Kritik secara personal & tetap menyemangati.</div>`
     },
     "Choleric": {
-        left: `<b>Karakteristik Dasar:</b> Berorientasi pada hasil, dinamis, dan berkemauan kuat. Praktis, mandiri, dan berani mengambil risiko untuk mencapai tujuan.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Pengambil keputusan cepat di bawah tekanan. Namun, terkadang tidak sabar, kurang empati, dan cenderung mendominasi.<br><br>
-               <b>Rekomendasi Karir:</b> Manajemen, Kewirausahaan, atau Posisi Eksekutif.<br><br>
-               <b>Saran Pengembangan:</b> Belajarlah mendengarkan masukan orang lain dan hargai ritme kerja tim yang berbeda.`,
-        right: `<div style="background: rgba(26,42,108,0.03); padding: 12px; border-left: 4px solid #c5a059;">
-                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
-                <b>Gaya Memimpin:</b> Visioner dan tegas. Fokus pada target & efektivitas.<br><br>
-                <b>Gaya Kerja:</b> Eksekutor lapangan yang handal untuk target yang sulit.<br><br>
-                <b>Komunikasi:</b> Bicara langsung ke poin utama (to-the-point). Fokus pada solusi.</div>`
+        left: `<b>KARAKTERISTIK DASAR:</b> Berorientasi hasil, dinamis, kemauan kuat. Praktis, mandiri, tidak takut risiko untuk mencapai tujuan.<br><br><b>KEKUATAN & KELEMAHAN:</b> Cepat mengambil keputusan di bawah tekanan. Namun terkadang tidak sabar, kurang empati, dan mendominasi.<br><br><b>KARIR:</b> Manajemen, Kewirausahaan, atau Posisi Eksekutif.<br><br><b>SARAN:</b> Belajar mendengarkan masukan orang lain dan hargai ritme kerja tim.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>BUSINESS INSIGHT:</b><br><b>Kepemimpinan:</b> Visioner & tegas. Fokus pada target.<br><br><b>Gaya Kerja:</b> Eksekutor lapangan handal untuk target sulit.<br><br><b>Komunikasi:</b> Langsung ke poin utama (to-the-point). Fokus solusi.</div>`
     },
     "Melancholic": {
-        left: `<b>Karakteristik Dasar:</b> Mendalam, analitis, dan memiliki standar kualitas sangat tinggi. Menghargai keteraturan, data, dan logika.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Teliti dan mampu melihat potensi masalah. Namun, sering overthinking, perfeksionis berlebihan, dan sulit menerima perubahan mendadak.<br><br>
-               <b>Rekomendasi Karir:</b> Akuntansi, Analis Data, Riset, atau Teknik.<br><br>
-               <b>Saran Pengembangan:</b> Belajarlah menerima bahwa "selesai lebih baik daripada sempurna" dan terbuka pada ide spontan.`,
-        right: `<div style="background: rgba(26,42,108,0.03); padding: 12px; border-left: 4px solid #c5a059;">
-                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
-                <b>Gaya Memimpin:</b> Terorganisir dan berbasis data. Memastikan sistem sesuai SOP.<br><br>
-                <b>Gaya Kerja:</b> Penjaga kualitas (Quality Control) terbaik dalam tim.<br><br>
-                <b>Komunikasi:</b> Sediakan data akurat. Berikan waktu untuk memproses informasi.</div>`
+        left: `<b>KARAKTERISTIK DASAR:</b> Mendalam, analitis, standar kualitas tinggi. Menghargai keteraturan, data, dan logika di atas segalanya.<br><br><b>KEKUATAN & KELEMAHAN:</b> Teliti melihat potensi masalah. Namun sering overthinking, perfeksionis, dan sulit menerima perubahan mendadak.<br><br><b>KARIR:</b> Akuntansi, Analis Data, Riset, Teknik, atau Hukum.<br><br><b>SARAN:</b> Belajar menerima bahwa "selesai lebih baik daripada sempurna".`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>BUSINESS INSIGHT:</b><br><b>Kepemimpinan:</b> Terorganisir (SOP) & berbasis data.<br><br><b>Gaya Kerja:</b> Penjaga kualitas (Quality Control) terbaik tim.<br><br><b>Komunikasi:</b> Sediakan fakta akurat & berikan waktu memproses data.</div>`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik Dasar:</b> Tenang, sabar, dan cinta damai. Pendengar luar biasa dan memiliki emosi yang sangat stabil.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Handal meredam konflik dan bekerja sama dengan siapa saja. Namun, kurang inisiatif, cenderung menunda, dan sulit berkata "tidak".<br><br>
-               <b>Rekomendasi Karir:</b> Pendidikan, Konseling, Administrasi, atau Mediator.<br><br>
-               <b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) menyatakan pendapat dan mulai sesuatu tanpa perintah.`,
-        right: `<div style="background: rgba(26,42,108,0.03); padding: 12px; border-left: 4px solid #c5a059;">
-                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
-                <b>Gaya Memimpin:</b> Suportif dan menjaga keharmonisan tim. Pendengar keluhan yang baik.<br><br>
-                <b>Gaya Kerja:</b> Stabilisator dan "perekat" tim yang membuat suasana kerja nyaman.<br><br>
-                <b>Komunikasi:</b> Berikan instruksi jelas & bertahap. Jangan mendesak secara agresif.</div>`
+        left: `<b>KARAKTERISTIK DASAR:</b> Tenang, sabar, cinta damai. Pendengar luar biasa dan emosi sangat stabil, jarang meledak-ledak.<br><br><b>KEKUATAN & KELEMAHAN:</b> Handal meredam konflik & bekerja sama dengan siapa saja. Kurang inisiatif, menunda, dan sulit berkata "tidak".<br><br><b>KARIR:</b> Pendidikan, Konseling, Administrasi, atau Mediator.<br><br><b>SARAN:</b> Belajar asertif menyatakan pendapat dan mulai sesuatu tanpa perintah.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>BUSINESS INSIGHT:</b><br><b>Kepemimpinan:</b> Suportif & menjaga keharmonisan tim.<br><br><b>Gaya Kerja:</b> Stabilisator & perekat suasana kerja yang nyaman.<br><br><b>Komunikasi:</b> Instruksi jelas & bertahap. Hindari cara agresif.</div>`
     }
 };
 
@@ -105,7 +72,6 @@ let userName = "";
 let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
 let radarChartInstance = null;
 
-// Initialization
 document.getElementById('start-form').addEventListener('submit', function(e) {
     e.preventDefault();
     userName = document.getElementById('user-name').value.trim();
@@ -116,10 +82,9 @@ document.getElementById('start-form').addEventListener('submit', function(e) {
 
 function showQuestion() {
     const q = quizQuestions[currentQuestionIndex];
-    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih yang mewakili Anda:`;
+    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih satu yang PALING mewakili Anda:`;
     const container = document.getElementById('options-container');
     container.innerHTML = '';
-    
     q.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.textContent = opt.text;
@@ -179,7 +144,9 @@ document.getElementById('download-cert-button').onclick = async function() {
     const btn = this;
     btn.disabled = true; btn.textContent = "Proses...";
     try {
-        let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        let scoresCopy = {...scores};
+        let dominant = Object.keys(scoresCopy).reduce((a, b) => scoresCopy[a] > scoresCopy[b] ? a : b);
+
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
