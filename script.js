@@ -47,36 +47,61 @@ const quizQuestions = [
     { question: "40. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "COMPROMISING - menghindari konflik", type: "Phlegmatic" }, { text: "CRITICAL - sering menilai negatif", type: "Melancholic" }, { text: "CRAFTY - menghalalkan segala cara", type: "Choleric" }, { text: "CHANGEABLE - perlu variasi agar tidak bosan", type: "Sanguine" }] }
 ];
 
-const personalityNames = {
-    "Sanguine": "Populer Sanguine",
-    "Choleric": "Kuat Choleric",
-    "Melancholic": "Sempurna Melancholic",
-    "Phlegmatic": "Damai Phlegmatic"
-};
+const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Choleric", "Melancholic": "Sempurna Melancholic", "Phlegmatic": "Damai Phlegmatic" };
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik:</b> Optimis dan penuh semangat. Menghidupkan suasana secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Hebat memotivasi orang lain, namun perlu disiplin pada detail.<br><br><b>Karir:</b> Marketing, PR, Seni, atau Penjualan.`,
-        right: `<b>Gaya Komunikasi:</b> Ekspresif.<br><b>Leadership:</b> Karismatik.<br><b>Tips:</b> Berikan apresiasi terbuka dan dampingi dalam urusan detail.`
+        left: `<b style="color:#1a2a6c;">KARAKTERISTIK DASAR:</b><br>Individu ekstrovert, optimis, dan penuh semangat. "Nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial.<br><br>
+               <b style="color:#1a2a6c;">KEKUATAN & KELEMAHAN:</b><br>Hebat dalam membangun hubungan baru. Namun, sering kurang teratur dalam administrasi dan mudah kehilangan fokus.<br><br>
+               <b style="color:#1a2a6c;">REKOMENDASI KARIR:</b><br>Marketing, PR, Penjualan, atau Seni Pertunjukan.<br><br>
+               <b style="color:#1a2a6c;">SARAN PENGEMBANGAN:</b><br>Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:12px; border-left:4px solid #c5a059;">
+                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
+                <b>Gaya Memimpin:</b> Demokratis dan inspiratif.<br><br>
+                <b>Gaya Kerja:</b> Sangat baik sebagai garda depan tim.<br><br>
+                <b>Komunikasi:</b> Berikan apresiasi terbuka. Kritik secara personal dengan nada menyemangati.</div>`
     },
     "Choleric": {
-        left: `<b>Karakteristik:</b> Berorientasi hasil dan tegas. Mandiri serta berani mengambil risiko.<br><br><b>Kekuatan & Kelemahan:</b> Pengambil keputusan cepat, namun perlu belajar empati.<br><br><b>Karir:</b> Manajemen atau Wirausaha.`,
-        right: `<b>Gaya Komunikasi:</b> Tegas.<br><b>Leadership:</b> Visioner.<br><b>Tips:</b> Fokus pada hasil dan bicara langsung ke poin utama.`
+        left: `<b style="color:#1a2a6c;">KARAKTERISTIK DASAR:</b><br>Berorientasi hasil, dinamis, dan berkemauan kuat. Praktis, mandiri, dan berani mengambil risiko.<br><br>
+               <b style="color:#1a2a6c;">KEKUATAN & KELEMAHAN:</b><br>Cepat mengambil keputusan. Namun, terkadang terlihat tidak sabar, kurang empati, dan cenderung mendominasi.<br><br>
+               <b style="color:#1a2a6c;">REKOMENDASI KARIR:</b><br>Manajemen, Kewirausahaan, atau posisi eksekutif.<br><br>
+               <b style="color:#1a2a6c;">SARAN PENGEMBANGAN:</b><br>Belajarlah mendengarkan masukan orang lain dan sadari setiap orang memiliki ritme kerja berbeda.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:12px; border-left:4px solid #c5a059;">
+                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
+                <b>Gaya Memimpin:</b> Visioner dan tegas. Fokus pada target.<br><br>
+                <b>Gaya Kerja:</b> Eksekutor lapangan yang handal untuk target sulit.<br><br>
+                <b>Komunikasi:</b> Bicara langsung ke poin utama (to-the-point). Hindari basa-basi.</div>`
     },
     "Melancholic": {
-        left: `<b>Karakteristik:</b> Analitis dan perfeksionis. Menghargai keteraturan dan data.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti, namun waspadai jebakan overthinking.<br><br><b>Karir:</b> Riset, Teknik, atau Hukum.`,
-        right: `<b>Gaya Komunikasi:</b> Terstruktur.<br><b>Leadership:</b> Berbasis SOP.<br><b>Tips:</b> Sediakan fakta akurat dan berikan waktu analisis.`
+        left: `<b style="color:#1a2a6c;">KARAKTERISTIK DASAR:</b><br>Mendalam, analitis, dan memiliki standar kualitas tinggi. Menghargai keteraturan dan logika.<br><br>
+               <b style="color:#1a2a6c;">KEKUATAN & KELEMAHAN:</b><br>Sangat teliti. Namun, sering terjebak overthinking dan perfeksionis berlebihan.<br><br>
+               <b style="color:#1a2a6c;">REKOMENDASI KARIR:</b><br>Akuntansi, Riset, Teknik, atau bidang hukum.<br><br>
+               <b style="color:#1a2a6c;">SARAN PENGEMBANGAN:</b><br>Belajarlah menerima bahwa "selesai lebih baik daripada sempurna".`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:12px; border-left:4px solid #c5a059;">
+                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
+                <b>Gaya Memimpin:</b> Terorganisir. Memastikan sistem sesuai SOP.<br><br>
+                <b>Gaya Kerja:</b> Penjaga kualitas (Quality Control) terbaik tim.<br><br>
+                <b>Komunikasi:</b> Sediakan data akurat. Berikan waktu untuk mereka memproses informasi.</div>`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik:</b> Tenang dan cinta damai. Pendengar luar biasa dengan emosi stabil.<br><br><b>Kekuatan & Kelemahan:</b> Handal meredam konflik, namun perlu dorongan inisiatif.<br><br><b>Karir:</b> Konseling atau Mediator.`,
-        right: `<b>Gaya Komunikasi:</b> Diplomatis.<br><b>Leadership:</b> Suportif.<br><b>Tips:</b> Hindari tekanan agresif dan berikan instruksi bertahap.`
+        left: `<b style="color:#1a2a6c;">KARAKTERISTIK DASAR:</b><br>Tenang, sabar, dan cinta damai. Pendengar luar biasa dan emosi stabil.<br><br>
+               <b style="color:#1a2a6c;">KEKUATAN & KELEMAHAN:</b><br>Mampu bekerja sama dengan siapa saja. Namun, sering kurang inisiatif dan sulit berkata "tidak".<br><br>
+               <b style="color:#1a2a6c;">REKOMENDASI KARIR:</b><br>Pendidikan, Konseling, atau Mediator.<br><br>
+               <b style="color:#1a2a6c;">SARAN PENGEMBANGAN:</b><br>Berlatihlah lebih tegas menyatakan pendapat dan mulai sesuatu tanpa perintah.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:12px; border-left:4px solid #c5a059;">
+                <b style="color:#1a2a6c;">BUSINESS & LEADERSHIP:</b><br><br>
+                <b>Gaya Memimpin:</b> Suportif dan menjaga keharmonisan tim.<br><br>
+                <b>Gaya Kerja:</b> Stabilisator dan "perekat" suasana kerja tetap nyaman.<br><br>
+                <b>Komunikasi:</b> Berikan instruksi jelas dan bertahap. Jangan agresif.</div>`
     }
 };
 
 let currentQuestionIndex = 0;
 let userName = "";
 let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
+let radarChartInstance = null;
 
+// Initialization
 document.getElementById('start-form').addEventListener('submit', function(e) {
     e.preventDefault();
     userName = document.getElementById('user-name').value.trim();
@@ -87,22 +112,25 @@ document.getElementById('start-form').addEventListener('submit', function(e) {
 
 function showQuestion() {
     const q = quizQuestions[currentQuestionIndex];
-    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih yang mewakili Anda:`;
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
+    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih satu yang PALING mewakili diri Anda:`;
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
     q.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.textContent = opt.text;
         btn.classList.add('option-button');
         if (q.selectedType === opt.type) btn.classList.add('selected');
         btn.onclick = () => { q.selectedType = opt.type; showQuestion(); };
-        container.appendChild(btn);
+        optionsContainer.appendChild(btn);
     });
+
     document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / 40) * 100}%`;
+    document.getElementById('prev-button').classList.toggle('hidden', currentQuestionIndex === 0);
 }
 
 document.getElementById('next-button').onclick = () => {
-    if (!quizQuestions[currentQuestionIndex].selectedType) { alert("Pilih jawaban!"); return; }
+    if (!quizQuestions[currentQuestionIndex].selectedType) { alert("Pilih jawaban dahulu!"); return; }
     currentQuestionIndex++;
     if (currentQuestionIndex < quizQuestions.length) showQuestion();
     else showResult();
@@ -113,17 +141,64 @@ document.getElementById('prev-button').onclick = () => { currentQuestionIndex--;
 function showResult() {
     document.getElementById('quiz-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
+    
     scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
     quizQuestions.forEach(q => { if (q.selectedType) scores[q.selectedType]++; });
+
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
     document.getElementById('result-title').textContent = `Hasil: ${personalityNames[dominant]}`;
-    document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}.`;
+    document.getElementById('result-description').textContent = `Halo ${userName}, spektrum kepribadian Anda telah terpetakan. Silakan unduh sertifikat untuk analisis mendalam.`;
 }
 
+// Logic for Drawing Radar Chart
+function createRadarChart(scoreData) {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    
+    if (radarChartInstance) { radarChartInstance.destroy(); }
+
+    radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Sanguine', 'Choleric', 'Melancholic', 'Phlegmatic'],
+            datasets: [{
+                label: 'Skor Kepribadian',
+                data: [scoreData.Sanguine, scoreData.Choleric, scoreData.Melancholic, scoreData.Phlegmatic],
+                backgroundColor: 'rgba(26, 42, 108, 0.2)',
+                borderColor: 'rgba(26, 42, 108, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: '#c5a059',
+                pointBorderColor: '#fff',
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: false,
+            animation: false, // Must be false for PDF capture
+            scales: {
+                r: {
+                    angleLines: { display: true },
+                    suggestedMin: 0,
+                    suggestedMax: 20, // max is 40 questions, usually split
+                    ticks: { display: false, stepSize: 5 }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+// PDF Download Logic
 document.getElementById('download-cert-button').onclick = async function() {
-    const btn = this; btn.disabled = true; btn.textContent = "Proses...";
+    const btn = this;
+    btn.disabled = true;
+    btn.textContent = "Sedang Memproses...";
+
     try {
         let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+        // Update Text
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
@@ -131,21 +206,32 @@ document.getElementById('download-cert-button').onclick = async function() {
         document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
         document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
 
-        // Memberikan jeda sebentar agar gambar termuat
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Create the Chart
+        createRadarChart(scores);
 
-        const canvas = await html2canvas(document.getElementById('cert-content'), {
-            scale: 2, useCORS: true, allowTaint: true
+        // Important: Wait for Chart to be fully visible before capture
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        const certContent = document.getElementById('cert-content');
+        const canvas = await html2canvas(certContent, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff"
         });
+
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-        pdf.save(`Sertifikat_${userName.replace(/\s+/g, '_')}.pdf`);
-    } catch (e) { 
-        console.error(e);
-        alert("Gagal unduh. Pastikan koneksi internet stabil dan gambar logo/ttd tersedia."); 
+        pdf.save(`Sertifikat_MindPrint_${userName.replace(/\s+/g, '_')}.pdf`);
+
+    } catch (error) {
+        console.error(error);
+        alert("Gagal mengunduh sertifikat. Pastikan file ttd.png tersedia.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "Unduh Sertifikat (PDF)";
     }
-    finally { btn.disabled = false; btn.textContent = "Unduh Sertifikat (PDF)"; }
 };
 
 document.getElementById('restart-button').onclick = () => location.reload();
