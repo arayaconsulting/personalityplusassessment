@@ -1,6 +1,6 @@
 /**
  * ARAYA CONSULTING - PERSONALITY PLUS ASSESSMENT ENGINE
- * Version: 5.0 (Final Elegant Design)
+ * Version: 5.1 (Fixed Full Questions & Layout Harmony)
  * Owner: Ali Mahfud
  */
 
@@ -56,28 +56,20 @@ const personalityNames = {
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik Utama:</b> Individu ekstrovert, optimis, dan penuh semangat. Menghidupkan suasana dan persuasif secara alami.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Hebat dalam memotivasi, namun perlu perhatian pada detail administrasi dan fokus.<br><br>
-               <b>Karir & Akademik:</b> Marketing, PR, Seni, atau Penjualan.`,
-        right: `<b>Gaya Komunikasi:</b> Ekspresif dan antusias.<br><br><b>Business & Leadership:</b> Pemimpin karismatik yang demokratis. Garda depan tim yang hebat.<br><br><b>Tips Interaksi:</b> Berikan apresiasi terbuka dan tetap dampingi dalam urusan detail.`
+        left: `<b>Karakteristik:</b> Optimis dan penuh semangat. Menghidupkan suasana secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Hebat memotivasi orang lain, namun perlu disiplin pada detail.<br><br><b>Karir:</b> Marketing, PR, Seni, atau Penjualan.`,
+        right: `<b>Gaya Komunikasi:</b> Ekspresif.<br><b>Leadership:</b> Karismatik.<br><b>Tips:</b> Berikan apresiasi terbuka dan dampingi dalam urusan detail.`
     },
     "Choleric": {
-        left: `<b>Karakteristik Utama:</b> Berorientasi hasil, dinamis, dan berkemauan kuat. Mandiri dan berani mengambil risiko.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Cepat mengambil keputusan, namun perlu waspada agar tidak terlihat terlalu mendominasi.<br><br>
-               <b>Karir & Akademik:</b> Manajemen, Wirausaha, atau Eksekutif.`,
-        right: `<b>Gaya Komunikasi:</b> Langsung dan tegas.<br><br><b>Business & Leadership:</b> Pemimpin visioner yang fokus pada target dan efisiensi tinggi.<br><br><b>Tips Interaksi:</b> Fokus pada solusi dan hasil. Anda butuh partner tipe Phlegmatic untuk harmoni.`
+        left: `<b>Karakteristik:</b> Berorientasi hasil dan tegas. Mandiri serta berani mengambil risiko.<br><br><b>Kekuatan & Kelemahan:</b> Pengambil keputusan cepat, namun perlu belajar empati.<br><br><b>Karir:</b> Manajemen atau Wirausaha.`,
+        right: `<b>Gaya Komunikasi:</b> Tegas.<br><b>Leadership:</b> Visioner.<br><b>Tips:</b> Fokus pada hasil dan bicara langsung ke poin utama.`
     },
     "Melancholic": {
-        left: `<b>Karakteristik Utama:</b> Mendalam, analitis, dan perfeksionis. Menghargai keteraturan dan data di atas segalanya.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Sangat teliti, namun waspadai jebakan overthinking dan kekakuan terhadap perubahan.<br><br>
-               <b>Karir & Akademik:</b> Akuntansi, Riset, Teknik, atau Hukum.`,
-        right: `<b>Gaya Komunikasi:</b> Terstruktur dan akurat.<br><br><b>Business & Leadership:</b> Pemimpin terorganisir yang memastikan kualitas dan SOP terbaik.<br><br><b>Tips Interaksi:</b> Sediakan fakta akurat dan berikan waktu untuk analisis sebelum menagih keputusan.`
+        left: `<b>Karakteristik:</b> Analitis dan perfeksionis. Menghargai keteraturan dan data.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti, namun waspadai jebakan overthinking.<br><br><b>Karir:</b> Riset, Teknik, atau Hukum.`,
+        right: `<b>Gaya Komunikasi:</b> Terstruktur.<br><b>Leadership:</b> Berbasis SOP.<br><b>Tips:</b> Sediakan fakta akurat dan berikan waktu analisis.`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik Utama:</b> Tenang, sabar, dan cinta damai. Pendengar luar biasa dengan emosi yang sangat stabil.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Handal meredam konflik, namun perlu dorongan untuk inisiatif dan ketegasan.<br><br>
-               <b>Karir & Akademik:</b> Pendidikan, Konseling, atau Mediator.`,
-        right: `<b>Gaya Komunikasi:</b> Diplomatis dan suportif.<br><br><b>Business & Leadership:</b> Pemimpin yang menjaga keharmonisan tim dan stabilisator kerja yang nyaman.<br><br><b>Tips Interaksi:</b> Hindari tekanan agresif. Berikan instruksi bertahap.`
+        left: `<b>Karakteristik:</b> Tenang dan cinta damai. Pendengar luar biasa dengan emosi stabil.<br><br><b>Kekuatan & Kelemahan:</b> Handal meredam konflik, namun perlu dorongan inisiatif.<br><br><b>Karir:</b> Konseling atau Mediator.`,
+        right: `<b>Gaya Komunikasi:</b> Diplomatis.<br><b>Leadership:</b> Suportif.<br><b>Tips:</b> Hindari tekanan agresif dan berikan instruksi bertahap.`
     }
 };
 
@@ -95,98 +87,65 @@ document.getElementById('start-form').addEventListener('submit', function(e) {
 
 function showQuestion() {
     const q = quizQuestions[currentQuestionIndex];
-    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih satu yang PALING mewakili Anda:`;
+    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih yang mewakili Anda:`;
     const container = document.getElementById('options-container');
     container.innerHTML = '';
-    
     q.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.textContent = opt.text;
         btn.classList.add('option-button');
         if (q.selectedType === opt.type) btn.classList.add('selected');
-        btn.onclick = () => {
-            q.selectedType = opt.type;
-            showQuestion();
-        };
+        btn.onclick = () => { q.selectedType = opt.type; showQuestion(); };
         container.appendChild(btn);
     });
-
     document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / 40) * 100}%`;
-    document.getElementById('prev-button').classList.toggle('hidden', currentQuestionIndex === 0);
 }
 
 document.getElementById('next-button').onclick = () => {
-    if (!quizQuestions[currentQuestionIndex].selectedType) {
-        alert("Mohon pilih salah satu jawaban.");
-        return;
-    }
+    if (!quizQuestions[currentQuestionIndex].selectedType) { alert("Pilih jawaban!"); return; }
     currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-        showQuestion();
-    } else {
-        showResult();
-    }
+    if (currentQuestionIndex < quizQuestions.length) showQuestion();
+    else showResult();
 };
 
-document.getElementById('prev-button').onclick = () => {
-    currentQuestionIndex--;
-    showQuestion();
-};
+document.getElementById('prev-button').onclick = () => { currentQuestionIndex--; showQuestion(); };
 
 function showResult() {
     document.getElementById('quiz-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
-    
     scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
-    quizQuestions.forEach(q => {
-        if (q.selectedType) scores[q.selectedType]++;
-    });
-
+    quizQuestions.forEach(q => { if (q.selectedType) scores[q.selectedType]++; });
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
     document.getElementById('result-title').textContent = `Hasil: ${personalityNames[dominant]}`;
     document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}.`;
 }
 
 document.getElementById('download-cert-button').onclick = async function() {
-    const btn = this;
-    btn.disabled = true;
-    btn.textContent = "Sedang Memproses...";
-
+    const btn = this; btn.disabled = true; btn.textContent = "Proses...";
     try {
-        let scoresCopy = {...scores};
-        let dominant = Object.keys(scoresCopy).reduce((a, b) => scoresCopy[a] > scoresCopy[b] ? a : b);
-
+        let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
         document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
         document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
-        document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
 
-        const certContent = document.getElementById('cert-content');
-        
-        // Memastikan elemen terlihat untuk dirender
-        const canvas = await html2canvas(certContent, {
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: "#ffffff",
-            logging: false
+        // Memberikan jeda sebentar agar gambar termuat
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const canvas = await html2canvas(document.getElementById('cert-content'), {
+            scale: 2, useCORS: true, allowTaint: true
         });
-
         const imgData = canvas.toDataURL('image/png');
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('l', 'mm', 'a4');
+        const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-        pdf.save(`Sertifikat_Araya_${userName.replace(/\s+/g, '_')}.pdf`);
-
-    } catch (error) {
-        console.error("Gagal Render:", error);
-        alert("Terjadi kesalahan teknis. Pastikan logo.png dan ttd.png tersedia di folder yang sama.");
-    } finally {
-        btn.disabled = false;
-        btn.textContent = "Unduh Sertifikat (PDF)";
+        pdf.save(`Sertifikat_${userName.replace(/\s+/g, '_')}.pdf`);
+    } catch (e) { 
+        console.error(e);
+        alert("Gagal unduh. Pastikan koneksi internet stabil dan gambar logo/ttd tersedia."); 
     }
+    finally { btn.disabled = false; btn.textContent = "Unduh Sertifikat (PDF)"; }
 };
 
 document.getElementById('restart-button').onclick = () => location.reload();
