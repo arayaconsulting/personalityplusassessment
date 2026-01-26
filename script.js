@@ -1,6 +1,6 @@
 /**
- * ARAYA CONSULTING - MINDPRINT ANALYSIS ENGINE
- * Version: 6.0 (Radar Chart & Perfect Signature Layout)
+ * ARAYA CONSULTING - PERSONALITY PLUS ASSESSMENT
+ * Script Engine Version: Final (Utuh & Proporsional)
  */
 
 const quizQuestions = [
@@ -173,7 +173,10 @@ document.getElementById('download-cert-button').onclick = async function() {
     btn.disabled = true; btn.textContent = "Proses...";
     try {
         let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        
+        // Update Nama Peserta Kapital
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
+        
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
         document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
