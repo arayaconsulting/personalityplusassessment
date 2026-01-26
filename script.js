@@ -65,7 +65,7 @@ const fullNarratives = {
                <b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br>
                <b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br>
                <b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
-        right: `<div style="background:rgba(26,42_108,0.03); padding:10px; border-left:4px solid #c5a059;">
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;">
                 <b>Business & Leadership Insight:</b><br><br>
                 <b>Gaya Kepemimpinan:</b> Pemimpin yang visioner dan otoriter (tegas). Fokus pada target dan efektivitas.<br><br>
                 <b>Gaya Kerja & Kolaborasi:</b> Sangat bagus untuk memimpin proyek baru atau mengejar target yang sulit. Mereka adalah eksekutor lapangan yang handal.<br><br>
@@ -189,7 +189,7 @@ document.getElementById('download-cert-button').onclick = async function() {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-        pdf.save(`Sertifikat_MindPrint_${userName.replace(/\s+/g, '_')}.pdf`);
+        pdf.save(`Sertifikat_${userName.replace(/\s+/g, '_')}.pdf`);
     } catch (error) { console.error(error); alert("Gagal unduh sertifikat."); }
     finally { btn.disabled = false; btn.textContent = "Unduh Sertifikat (PDF)"; }
 };
