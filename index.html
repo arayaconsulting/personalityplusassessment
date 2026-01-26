@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tes Kepribadian Personality Plus</title>
+    <title>Tes Kepribadian Personality Plus - Araya Consulting</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container" id="intro-container">
-        <img src="logo.png" alt="Logo Perusahaan" class="logo">
+        <img src="logo.png" alt="Logo Araya Consulting" class="logo">
         <h1>Temukan kepribadian anda, sebelum mengikuti sesi bersama Mas Ali Mahfud</h1>
-        <p>Jawab 40 pertanyaan singkat untuk mengetahui tipe kepribadian Anda berdasarkan Personality Plus.</p>
+        <p>Jawab 40 pertanyaan singkat untuk mengetahui tipe kepribadian Anda berdasarkan pendekatan Personality Plus.</p>
         <form id="start-form">
             <input type="text" id="user-name" placeholder="Nama Lengkap Anda" required>
             <button type="submit" id="start-button">Mulai Tes</button>
@@ -24,8 +25,7 @@
         <div class="progress-bar-container">
             <div id="progress-bar"></div>
         </div>
-        <div id="options-container">
-            </div>
+        <div id="options-container"></div>
         <div id="quiz-nav">
             <button id="prev-button" class="hidden">Sebelumnya</button>
             <button id="next-button">Selanjutnya</button>
@@ -35,9 +35,46 @@
     <div class="container hidden" id="result-container">
         <h2 id="result-title"></h2>
         <p id="result-description"></p>
-        <button id="restart-button">Ulangi Tes</button>
+        <div class="button-group">
+            <button id="download-cert-button">Unduh Sertifikat (PDF)</button>
+            <button id="restart-button" class="btn-secondary">Kembali ke Beranda</button>
+        </div>
     </div>
 
+    <div id="certificate-wrapper" style="position: absolute; left: -9999px;">
+        <div id="cert-content" style="width: 1000px; padding: 60px; background: #fff; border: 20px solid #4A90E2; font-family: 'Poppins', sans-serif; color: #333;">
+            <div style="text-align: center; border-bottom: 3px solid #4A90E2; padding-bottom: 20px; margin-bottom: 30px;">
+                <h1 style="margin: 0; color: #4A90E2; font-size: 40px;">ARAYA CONSULTING</h1>
+                <p style="margin: 5px 0; letter-spacing: 3px; font-weight: 600;">CERTIFICATE OF PERSONALITY ANALYSIS</p>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-style: italic; font-size: 20px; margin: 0;">Sertifikat ini diberikan kepada:</p>
+                <h2 id="cert-user-name" style="font-size: 42px; color: #333; margin: 10px 0; border-bottom: 1px dashed #ccc; display: inline-block; padding: 0 50px;"></h2>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="color: #4A90E2; margin-bottom: 15px; font-size: 22px;">Tipe Dominan: <span id="cert-type"></span></h3>
+                <div id="cert-narrative" style="font-size: 15px; line-height: 1.8; text-align: justify; white-space: pre-wrap;"></div>
+            </div>
+
+            <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div style="font-size: 13px; color: #666;">
+                    <p style="margin: 2px 0;">ID Sertifikat: <span id="cert-id"></span></p>
+                    <p style="margin: 2px 0;">Tanggal: <span id="cert-date"></span></p>
+                    <p style="margin: 2px 0; color: #4A90E2;">arayaconsulting.github.io</p>
+                </div>
+                <div style="text-align: center; width: 250px;">
+                    <p style="margin-bottom: 60px; font-size: 16px;">Consultant,</p>
+                    <p style="margin: 0; font-weight: 600; font-size: 18px; border-top: 1px solid #333; padding-top: 5px;">Ali Mahfud</p>
+                    <p style="margin: 0; font-size: 12px; color: #4A90E2;">Araya Consulting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
