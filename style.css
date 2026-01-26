@@ -16,9 +16,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    line-height: 1.6;
 }
 
 .container {
@@ -31,119 +30,52 @@ body {
     width: 90%;
 }
 
-h1, h2 {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-p {
-    color: var(--light-text-color);
-    margin-bottom: 25px;
-}
-
-.logo {
-    width: 200px;
-    height: auto;
-    margin-bottom: 20px;
-}
+.logo { width: 180px; margin-bottom: 20px; }
+h1, h2 { color: var(--primary-color); }
 
 button {
     background-color: var(--primary-color);
-    color: #fff;
+    color: white;
     border: none;
     padding: 15px 30px;
-    font-size: 16px;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
     width: 100%;
-    max-width: 300px;
+    margin-top: 10px;
+    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #357ABD;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+button:hover { transform: translateY(-2px); opacity: 0.9; }
+
+.btn-secondary { background-color: #eee !important; color: #444 !important; }
+
+.button-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 
 .option-button {
-    background-color: var(--card-color);
+    background-color: white;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
-    padding: 15px;
-    margin-bottom: 10px;
-    font-size: 14px;
+    padding: 12px;
+    margin-bottom: 8px;
     text-align: left;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 500px;
     border-radius: 10px;
-    cursor: pointer;
+    font-size: 14px;
 }
 
-.option-button:hover {
-    background-color: var(--primary-color);
-    color: var(--card-color);
-}
+.option-button.selected { background-color: var(--primary-color); color: white; }
 
-.hidden {
-    display: none;
-}
+.hidden { display: none; }
 
 .progress-bar-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    margin: 20px 0;
-    height: 10px;
-    overflow: hidden;
+    width: 100%; background: #eee; height: 10px; border-radius: 5px; margin: 20px 0;
 }
 
-#progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: var(--secondary-color);
-    border-radius: 5px;
-    transition: width 0.4s ease-in-out;
+#progress-bar { background: var(--secondary-color); height: 100%; width: 0; transition: 0.4s; }
+
+#start-form { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#start-form input {
+    padding: 15px; width: 100%; max-width: 300px; border-radius: 50px; border: 1px solid #ccc; text-align: center;
 }
 
-#options-container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-#quiz-nav {
-    display: flex;
-    justify-content: space-between;
-}
-
-#quiz-nav button {
-    width: 48%;
-    font-size: 14px;
-}
-/* Tambahkan gaya ini di bagian akhir style.css */
-
-#start-form {
-    display: flex;
-    flex-direction: column; /* Mengatur item dari atas ke bawah */
-    align-items: center;
-    gap: 15px; /* Jarak antar elemen */
-}
-
-#start-form input[type="text"] {
-    width: 100%; /* Membuat input nama lebar penuh */
-    max-width: 300px; /* Batasi lebar agar sesuai tombol */
-    padding: 15px; /* Menyamakan padding dengan tombol untuk konsistensi */
-    box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
-    border: 1px solid #ddd;
-    border-radius: 50px; /* Membuat sudut membulat seperti tombol */
-    text-align: center;
-}
-
-#start-form #start-button {
-    width: 100%;
-    max-width: 300px; /* Menjaga lebar tombol tetap sama */
-}
+#quiz-nav { display: flex; justify-content: space-between; gap: 10px; }
