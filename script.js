@@ -56,28 +56,28 @@ const personalityNames = {
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik Dasar:</b> Individu ekstrovert, optimis, dan penuh semangat. Menghidupkan suasana dan persuasif secara alami.<br><br>
+        left: `<b>Karakteristik Utama:</b> Individu ekstrovert, optimis, dan penuh semangat. Menghidupkan suasana dan persuasif secara alami.<br><br>
                <b>Kekuatan & Kelemahan:</b> Hebat dalam memotivasi, namun perlu perhatian pada detail administrasi dan fokus.<br><br>
                <b>Karir & Akademik:</b> Marketing, PR, Seni, atau Penjualan.`,
-        right: `Pemimpin demokratis yang memimpin dengan karisma. Sangat baik sebagai garda depan tim. <br><br><b>Tips Komunikasi:</b> Berikan apresiasi terbuka dan tetap dampingi dalam urusan detail operasional.`
+        right: `<b>Gaya Komunikasi:</b> Ekspresif dan antusias.<br><br><b>Business & Leadership:</b> Pemimpin karismatik yang demokratis. Garda depan tim yang hebat.<br><br><b>Tips Interaksi:</b> Berikan apresiasi terbuka dan tetap dampingi dalam urusan detail.`
     },
     "Choleric": {
-        left: `<b>Karakteristik Dasar:</b> Berorientasi hasil, dinamis, dan berkemauan kuat. Mandiri dan berani mengambil risiko.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Cepat mengambil keputusan, namun perlu belajar empati dan kesabaran terhadap tim.<br><br>
+        left: `<b>Karakteristik Utama:</b> Berorientasi hasil, dinamis, dan berkemauan kuat. Mandiri dan berani mengambil risiko.<br><br>
+               <b>Kekuatan & Kelemahan:</b> Cepat mengambil keputusan, namun perlu waspada agar tidak terlihat terlalu mendominasi.<br><br>
                <b>Karir & Akademik:</b> Manajemen, Wirausaha, atau Eksekutif.`,
-        right: `Pemimpin visioner yang fokus pada target. Eksekutor handal untuk tantangan sulit. <br><br><b>Tips Komunikasi:</b> Bicara langsung ke poin utama (to-the-point) dan fokus pada solusi.`
+        right: `<b>Gaya Komunikasi:</b> Langsung dan tegas.<br><br><b>Business & Leadership:</b> Pemimpin visioner yang fokus pada target dan efisiensi tinggi.<br><br><b>Tips Interaksi:</b> Fokus pada solusi dan hasil. Anda butuh partner tipe Phlegmatic untuk harmoni.`
     },
     "Melancholic": {
-        left: `<b>Karakteristik Dasar:</b> Mendalam, analitis, dan perfeksionis. Menghargai keteraturan dan data di atas segalanya.<br><br>
+        left: `<b>Karakteristik Utama:</b> Mendalam, analitis, dan perfeksionis. Menghargai keteraturan dan data di atas segalanya.<br><br>
                <b>Kekuatan & Kelemahan:</b> Sangat teliti, namun waspadai jebakan overthinking dan kekakuan terhadap perubahan.<br><br>
                <b>Karir & Akademik:</b> Akuntansi, Riset, Teknik, atau Hukum.`,
-        right: `Pemimpin terorganisir yang memastikan sistem sesuai SOP. Penjaga kualitas terbaik dalam bisnis. <br><br><b>Tips Komunikasi:</b> Sediakan data akurat dan berikan waktu untuk analisis sebelum menagih keputusan.`
+        right: `<b>Gaya Komunikasi:</b> Terstruktur dan akurat.<br><br><b>Business & Leadership:</b> Pemimpin terorganisir yang memastikan kualitas dan SOP terbaik.<br><br><b>Tips Interaksi:</b> Sediakan fakta akurat dan berikan waktu untuk analisis sebelum menagih keputusan.`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik Dasar:</b> Tenang, sabar, dan cinta damai. Pendengar luar biasa dengan emosi yang sangat stabil.<br><br>
+        left: `<b>Karakteristik Utama:</b> Tenang, sabar, dan cinta damai. Pendengar luar biasa dengan emosi yang sangat stabil.<br><br>
                <b>Kekuatan & Kelemahan:</b> Handal meredam konflik, namun perlu dorongan untuk inisiatif dan ketegasan.<br><br>
                <b>Karir & Akademik:</b> Pendidikan, Konseling, atau Mediator.`,
-        right: `Pemimpin suportif yang menjaga keharmonisan tim. Stabilisator kerja yang nyaman. <br><br><b>Tips Komunikasi:</b> Berikan instruksi jelas dan hindari tekanan yang agresif.`
+        right: `<b>Gaya Komunikasi:</b> Diplomatis dan suportif.<br><br><b>Business & Leadership:</b> Pemimpin yang menjaga keharmonisan tim dan stabilisator kerja yang nyaman.<br><br><b>Tips Interaksi:</b> Hindari tekanan agresif. Berikan instruksi bertahap.`
     }
 };
 
@@ -85,7 +85,6 @@ let currentQuestionIndex = 0;
 let userName = "";
 let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
 
-// Main Logic
 document.getElementById('start-form').addEventListener('submit', function(e) {
     e.preventDefault();
     userName = document.getElementById('user-name').value.trim();
@@ -144,43 +143,48 @@ function showResult() {
     });
 
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    
     document.getElementById('result-title').textContent = `Hasil: ${personalityNames[dominant]}`;
-    document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}. Penjelasan lengkap tersedia di sertifikat hasil analisis.`;
+    document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}.`;
 }
 
-// PDF Export Logic
 document.getElementById('download-cert-button').onclick = async function() {
     const btn = this;
     btn.disabled = true;
-    btn.textContent = "Proses...";
+    btn.textContent = "Sedang Memproses...";
 
-    let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    try {
+        let scoresCopy = {...scores};
+        let dominant = Object.keys(scoresCopy).reduce((a, b) => scoresCopy[a] > scoresCopy[b] ? a : b);
 
-    // Sync HTML Elements with JS Data
-    document.getElementById('cert-user-name').textContent = userName;
-    document.getElementById('cert-type').textContent = personalityNames[dominant];
-    document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
-    document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
-    document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
-    document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
+        document.getElementById('cert-user-name').textContent = userName.toUpperCase();
+        document.getElementById('cert-type').textContent = personalityNames[dominant];
+        document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
+        document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
+        document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
+        document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(1000 + Math.random() * 9000);
 
-    const certContent = document.getElementById('cert-content');
-    
-    html2canvas(certContent, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#ffffff"
-    }).then(canvas => {
+        const certContent = document.getElementById('cert-content');
+        
+        const canvas = await html2canvas(certContent, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff"
+        });
+
         const imgData = canvas.toDataURL('image/png');
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('l', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-        pdf.save(`Sertifikat_Araya_${userName}.pdf`);
+        pdf.save(`Sertifikat_Araya_${userName.replace(/\s+/g, '_')}.pdf`);
+
+    } catch (error) {
+        console.error("Gagal:", error);
+        alert("Terjadi kesalahan teknis. Pastikan logo.png dan ttd.png tersedia.");
+    } finally {
         btn.disabled = false;
         btn.textContent = "Unduh Sertifikat (PDF)";
-    });
+    }
 };
 
 document.getElementById('restart-button').onclick = () => location.reload();
