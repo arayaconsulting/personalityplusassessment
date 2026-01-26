@@ -42,32 +42,37 @@
     </div>
 
     <div id="certificate-wrapper" style="position: absolute; left: -9999px;">
-        <div id="cert-content" style="width: 1000px; padding: 60px; background: #fff; border: 20px solid #4A90E2; font-family: 'Poppins', sans-serif; color: #333;">
-            <div style="text-align: center; border-bottom: 3px solid #4A90E2; padding-bottom: 20px; margin-bottom: 30px;">
-                <h1 style="margin: 0; color: #4A90E2; font-size: 40px;">ARAYA CONSULTING</h1>
-                <p style="margin: 5px 0; letter-spacing: 3px; font-weight: 600;">CERTIFICATE OF PERSONALITY ANALYSIS</p>
+        <div id="cert-content" style="width: 1100px; padding: 50px; background: #fff; border: 15px solid #4A90E2; font-family: 'Poppins', sans-serif; color: #333; position: relative; overflow: hidden;">
+            
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 100px; color: rgba(74, 144, 226, 0.05); font-weight: bold; pointer-events: none; white-space: nowrap; z-index: 0;">ARAYA CONSULTING</div>
+
+            <div style="text-align: center; border-bottom: 3px solid #4A90E2; padding-bottom: 15px; margin-bottom: 25px; position: relative; z-index: 1;">
+                <img src="logo.png" style="width: 120px; margin-bottom: 10px;">
+                <h1 style="margin: 0; color: #4A90E2; font-size: 32px; letter-spacing: 2px;">ARAYA CONSULTING</h1>
+                <p style="margin: 0; font-weight: 600; font-size: 14px; letter-spacing: 4px;">CERTIFICATE OF PERSONALITY ANALYSIS</p>
             </div>
             
-            <div style="text-align: center; margin-bottom: 30px;">
-                <p style="font-style: italic; font-size: 20px; margin: 0;">Sertifikat ini diberikan kepada:</p>
-                <h2 id="cert-user-name" style="font-size: 42px; color: #333; margin: 10px 0; border-bottom: 1px dashed #ccc; display: inline-block; padding: 0 50px;"></h2>
+            <div style="text-align: center; margin-bottom: 20px; position: relative; z-index: 1;">
+                <p style="font-style: italic; font-size: 16px; margin: 0;">Sertifikat ini diberikan kepada:</p>
+                <h2 id="cert-user-name" style="font-size: 36px; color: #333; margin: 5px 0; border-bottom: 2px solid #eee; display: inline-block; padding: 0 40px;"></h2>
             </div>
 
-            <div style="margin-top: 20px;">
-                <h3 style="color: #4A90E2; margin-bottom: 15px; font-size: 22px;">Tipe Dominan: <span id="cert-type"></span></h3>
-                <div id="cert-narrative" style="font-size: 15px; line-height: 1.8; text-align: justify; white-space: pre-wrap;"></div>
+            <div id="cert-body" style="position: relative; z-index: 1; font-size: 13px; line-height: 1.5;">
+                <h3 style="color: #4A90E2; margin-bottom: 10px; font-size: 18px; border-left: 5px solid #4A90E2; padding-left: 10px;">Tipe Dominan: <span id="cert-type"></span></h3>
+                <div id="cert-narrative-box">
+                    </div>
             </div>
 
-            <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-end;">
-                <div style="font-size: 13px; color: #666;">
+            <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1;">
+                <div style="font-size: 11px; color: #666;">
                     <p style="margin: 2px 0;">ID Sertifikat: <span id="cert-id"></span></p>
                     <p style="margin: 2px 0;">Tanggal: <span id="cert-date"></span></p>
-                    <p style="margin: 2px 0; color: #4A90E2;">arayaconsulting.github.io</p>
+                    <p style="margin: 2px 0; color: #4A90E2; font-weight: bold;">arayaconsulting.github.io</p>
                 </div>
-                <div style="text-align: center; width: 250px;">
-                    <p style="margin-bottom: 60px; font-size: 16px;">Consultant,</p>
-                    <p style="margin: 0; font-weight: 600; font-size: 18px; border-top: 1px solid #333; padding-top: 5px;">Ali Mahfud</p>
-                    <p style="margin: 0; font-size: 12px; color: #4A90E2;">Araya Consulting</p>
+                <div style="text-align: center; width: 200px;">
+                    <p style="margin-bottom: 50px; font-size: 14px;">Consultant,</p>
+                    <p style="margin: 0; font-weight: 600; font-size: 16px; border-top: 1px solid #333; padding-top: 5px;">Ali Mahfud</p>
+                    <p style="margin: 0; font-size: 11px; color: #4A90E2;">Owner Araya Consulting</p>
                 </div>
             </div>
         </div>
