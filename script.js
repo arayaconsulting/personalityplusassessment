@@ -1,13 +1,13 @@
 /**
  * ARAYA CONSULTING - PERSONALITY PLUS ASSESSMENT ENGINE
- * Developer: AI Collaborator for Mas Ali Mahfud
- * Version: 2.0 (Full Integration)
+ * Version: 3.0 (Elegant Two-Column Certificate)
+ * Owner: Ali Mahfud
  */
 
 const quizQuestions = [
     { question: "1. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "ADVENTUROUS - orang yang suka tantangan, hal-hal baru, tekad kuat", type: "Choleric" }, { text: "ADAPTABLE - mudah menyesuaikan diri dalam setiap situasi", type: "Phlegmatic" }, { text: "ANIMATED - penuh gairah hidup, ekspresif", type: "Sanguine" }, { text: "ANALYTICAL - suka meneliti dan logis", type: "Melancholic" }] },
     { question: "2. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "PERSISTENT - menyelesaikan pekerjaan sampai tuntas", type: "Melancholic" }, { text: "PLAYFUL - ceria, suka bercanda", type: "Sanguine" }, { text: "PERSUASIVE - meyakinkan dengan logika dan fakta", type: "Choleric" }, { text: "PEACEFUL - suasana hati damai, menghindari tantangan", type: "Phlegmatic" }] },
-    { question: "3. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SUBMISSIVE - mudah menerima pandangan orang lain", type: "Phlegmatic" }, { text: "SELF SACRIFICING - rela berkorban demi orang lain", type: "Melancholic" }, { text: "SOCIABLE - suka tampil cerdas dan menyenangkan", type: "Sanguine" }, { text: "STRONG-WILLED - berkemauan keras untuk mencapai tujuan", type: "Choleric" }] },
+    { question: "3. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SUBMISSIVE - mudah menerima pandangan orang lain", type: "Phlegmatic" }, { text: "SELF SACRIFICING - rela berkorban demi orang lain", type: "Melancholic" }, { text: "SOCIABLE - suka tampil cerdas dan menyenangkan", type: "Sanguine" }, { text: "STRONG-WILLLED - berkemauan keras untuk mencapai tujuan", type: "Choleric" }] },
     { question: "4. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "CONSIDERATE - tanggap terhadap perasaan orang lain", type: "Phlegmatic" }, { text: "CONTROLLED - dapat mengendalikan emosi", type: "Melancholic" }, { text: "COMPETITIVE - selalu ingin menang dalam setiap lomba", type: "Choleric" }, { text: "CONVINCING - meyakinkan melalui daya tarik pribadi", type: "Sanguine" }] },
     { question: "5. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "REFRESHING - menyegarkan orang lain", type: "Sanguine" }, { text: "RESPECTFUL - sopan dan menghargai orang lain", type: "Phlegmatic" }, { text: "RESERVED - menahan diri dalam ekspresi", type: "Melancholic" }, { text: "RESOURCEFUL - bertindak cepat dan efektif", type: "Choleric" }] },
     { question: "6. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SATISFIED - mudah menerima keadaan", type: "Phlegmatic" }, { text: "SENSITIVE - peduli mendalam terhadap orang lain", type: "Melancholic" }, { text: "SELF-RELIANT - mandiri dan percaya kemampuan sendiri", type: "Choleric" }, { text: "SPIRITED - penuh gairah dan kegembiraan", type: "Sanguine" }] },
@@ -55,43 +55,38 @@ const personalityNames = {
 };
 
 const fullNarratives = {
-    "Sanguine": `
-        <p><b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.</p>
-        <p><b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.</p>
-        <p><b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.</p>
-        <p><b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.</p>
-        <p><b>Business & Leadership Insight:</b> Pemimpin yang demokratis dan inspiratif. Sangat baik sebagai garda depan (frontliner) atau bagian promosi. Mereka mampu mencairkan suasana tim yang kaku. Berikan apresiasi atau pujian secara terbuka.</p>
-    `,
-    "Choleric": `
-        <p><b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.</p>
-        <p><b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi lingkungan kerja.</p>
-        <p><b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.</p>
-        <p><b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.</p>
-        <p><b>Business & Leadership Insight:</b> Pemimpin yang visioner dan tegas. Eksekutor lapangan yang handal untuk mengejar target yang sulit. Bicara langsung ke poin utama (to-the-point) saat berkomunikasi dengan tipe ini.</p>
-    `,
-    "Melancholic": `
-        <p><b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.</p>
-        <p><b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, perfeksionis yang berlebihan, dan sulit beradaptasi dengan perubahan mendadak.</p>
-        <p><b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.</p>
-        <p><b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.</p>
-        <p><b>Business & Leadership Insight:</b> Pemimpin yang terorganisir dan berbasis data. Penjaga kualitas (Quality Control) terbaik dalam tim. Sediakan data dan fakta yang akurat serta berikan waktu untuk mereka memproses informasi.</p>
-    `,
-    "Phlegmatic": `
-        <p><b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.</p>
-        <p><b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".</p>
-        <p><b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.</p>
-        <p><b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.</p>
-        <p><b>Business & Leadership Insight:</b> Pemimpin yang suportif dan menjaga keharmonisan tim. Stabilisator dalam tim yang membuat suasana kerja tetap nyaman. Berikan instruksi yang jelas dan hindari pendekatan agresif.</p>
-    `
+    "Sanguine": {
+        left: `<b>Karakteristik Dasar:</b> Individu ekstrovert, optimis, dan penuh semangat. Menghidupkan suasana dan persuasif secara alami.<br><br>
+               <b>Kekuatan & Kelemahan:</b> Hebat dalam memotivasi, namun perlu perhatian pada detail administrasi dan fokus.<br><br>
+               <b>Karir & Akademik:</b> Marketing, PR, Seni, atau Penjualan.`,
+        right: `Pemimpin demokratis yang memimpin dengan karisma. Sangat baik sebagai garda depan tim. <br><br><b>Tips Komunikasi:</b> Berikan apresiasi terbuka dan tetap dampingi dalam urusan detail operasional.`
+    },
+    "Choleric": {
+        left: `<b>Karakteristik Dasar:</b> Berorientasi hasil, dinamis, dan berkemauan kuat. Mandiri dan berani mengambil risiko.<br><br>
+               <b>Kekuatan & Kelemahan:</b> Cepat mengambil keputusan, namun perlu belajar empati dan kesabaran terhadap tim.<br><br>
+               <b>Karir & Akademik:</b> Manajemen, Wirausaha, atau Eksekutif.`,
+        right: `Pemimpin visioner yang fokus pada target. Eksekutor handal untuk tantangan sulit. <br><br><b>Tips Komunikasi:</b> Bicara langsung ke poin utama (to-the-point) dan fokus pada solusi.`
+    },
+    "Melancholic": {
+        left: `<b>Karakteristik Dasar:</b> Mendalam, analitis, dan perfeksionis. Menghargai keteraturan dan data di atas segalanya.<br><br>
+               <b>Kekuatan & Kelemahan:</b> Sangat teliti, namun waspadai jebakan overthinking dan kekakuan terhadap perubahan.<br><br>
+               <b>Karir & Akademik:</b> Akuntansi, Riset, Teknik, atau Hukum.`,
+        right: `Pemimpin terorganisir yang memastikan sistem sesuai SOP. Penjaga kualitas terbaik dalam bisnis. <br><br><b>Tips Komunikasi:</b> Sediakan data akurat dan berikan waktu untuk analisis sebelum menagih keputusan.`
+    },
+    "Phlegmatic": {
+        left: `<b>Karakteristik Dasar:</b> Tenang, sabar, dan cinta damai. Pendengar luar biasa dengan emosi yang sangat stabil.<br><br>
+               <b>Kekuatan & Kelemahan:</b> Handal meredam konflik, namun perlu dorongan untuk inisiatif dan ketegasan.<br><br>
+               <b>Karir & Akademik:</b> Pendidikan, Konseling, atau Mediator.`,
+        right: `Pemimpin suportif yang menjaga keharmonisan tim. Stabilisator kerja yang nyaman. <br><br><b>Tips Komunikasi:</b> Berikan instruksi jelas dan hindari tekanan yang agresif.`
+    }
 };
 
 let currentQuestionIndex = 0;
 let userName = "";
 let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
 
-// Initialize App
-const startForm = document.getElementById('start-form');
-startForm.addEventListener('submit', function(e) {
+// Main Logic
+document.getElementById('start-form').addEventListener('submit', function(e) {
     e.preventDefault();
     userName = document.getElementById('user-name').value.trim();
     document.getElementById('intro-container').classList.add('hidden');
@@ -101,7 +96,7 @@ startForm.addEventListener('submit', function(e) {
 
 function showQuestion() {
     const q = quizQuestions[currentQuestionIndex];
-    document.getElementById('question-text').textContent = q.question;
+    document.getElementById('question-text').textContent = `(${currentQuestionIndex + 1}/40) Pilih satu yang PALING mewakili Anda:`;
     const container = document.getElementById('options-container');
     container.innerHTML = '';
     
@@ -123,7 +118,7 @@ function showQuestion() {
 
 document.getElementById('next-button').onclick = () => {
     if (!quizQuestions[currentQuestionIndex].selectedType) {
-        alert("Mohon pilih salah satu jawaban sebelum melanjutkan.");
+        alert("Mohon pilih salah satu jawaban.");
         return;
     }
     currentQuestionIndex++;
@@ -143,7 +138,6 @@ function showResult() {
     document.getElementById('quiz-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
     
-    // Reset and Calculate Scores
     scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
     quizQuestions.forEach(q => {
         if (q.selectedType) scores[q.selectedType]++;
@@ -152,44 +146,41 @@ function showResult() {
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
     
     document.getElementById('result-title').textContent = `Hasil: ${personalityNames[dominant]}`;
-    document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}. Silakan unduh sertifikat hasil analisis untuk detail lengkap bagi pengembangan diri dan profesional Anda.`;
+    document.getElementById('result-description').textContent = `Halo ${userName}, kepribadian dominan Anda adalah ${personalityNames[dominant]}. Penjelasan lengkap tersedia di sertifikat hasil analisis.`;
 }
 
-// PDF Generation Logic
+// PDF Export Logic
 document.getElementById('download-cert-button').onclick = async function() {
     const btn = this;
     btn.disabled = true;
-    btn.textContent = "Sedang Memproses...";
+    btn.textContent = "Proses...";
 
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 
-    // Populate Certificate Data
+    // Sync HTML Elements with JS Data
     document.getElementById('cert-user-name').textContent = userName;
     document.getElementById('cert-type').textContent = personalityNames[dominant];
-    document.getElementById('cert-narrative-box').innerHTML = fullNarratives[dominant];
+    document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
+    document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
     document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
-    document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
 
     const certContent = document.getElementById('cert-content');
     
-    // Render to Canvas
-    const canvas = await html2canvas(certContent, {
+    html2canvas(certContent, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
         backgroundColor: "#ffffff"
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
+        pdf.save(`Sertifikat_Araya_${userName}.pdf`);
+        btn.disabled = false;
+        btn.textContent = "Unduh Sertifikat (PDF)";
     });
-
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('l', 'mm', 'a4');
-    
-    // A4 Landscape is 297mm x 210mm
-    pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-    pdf.save(`Sertifikat_Kepribadian_Araya_${userName}.pdf`);
-
-    btn.disabled = false;
-    btn.textContent = "Unduh Sertifikat (PDF)";
 };
 
 document.getElementById('restart-button').onclick = () => location.reload();
