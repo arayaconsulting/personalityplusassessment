@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -15,6 +16,7 @@
     <div class="container" id="intro-container">
         <img src="logo.png" alt="Logo Araya Consulting" class="logo">
         <h1>Temukan kepribadian anda, sebelum mengikuti sesi bersama Mas Ali Mahfud</h1>
+        <p>Jawab 40 pertanyaan singkat untuk mengetahui tipe kepribadian Anda berdasarkan pendekatan Personality Plus.</p>
         <form id="start-form">
             <input type="text" id="user-name" placeholder="Nama Lengkap Anda" required>
             <button type="submit" id="start-button">Mulai Tes</button>
@@ -41,49 +43,54 @@
     </div>
 
     <div id="certificate-wrapper" style="position: absolute; left: -9999px; top: 0;">
-        <div id="cert-content" style="width: 1120px; height: 790px; padding: 30px 50px; background: #fff; border: 18px solid #1a2a6c; font-family: 'Poppins', sans-serif; color: #333; position: relative; box-sizing: border-box; display: flex; flex-direction: column;">
+        <div id="cert-content" style="width: 1120px; height: 790px; padding: 40px; background: #fff; border: 18px solid #1a2a6c; font-family: 'Poppins', sans-serif; color: #333; position: relative; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;">
             
-            <div style="position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 2px solid #c5a059; pointer-events: none;"></div>
+            <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 2px solid #c5a059; pointer-events: none;"></div>
 
-            <div style="text-align: center; margin-bottom: 15px;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 80px; color: rgba(26, 42, 108, 0.03); font-weight: 800; pointer-events: none; z-index: 0; width: 150%; text-align: center;">
+                ARAYA CONSULTING ARAYA CONSULTING ARAYA CONSULTING
+            </div>
+
+            <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 15px;">
                 <img src="logo.png" style="width: 80px; margin-bottom: 5px;" crossorigin="anonymous">
-                <h1 style="margin: 0; color: #1a2a6c; font-size: 26px; text-transform: uppercase; letter-spacing: 1px;">Araya Consulting</h1>
-                <p style="margin: 0; font-weight: 600; font-size: 11px; letter-spacing: 3px; color: #c5a059;">CERTIFICATE OF PERSONALITY ANALYSIS</p>
+                <h1 style="margin: 0; color: #1a2a6c; font-size: 26px; text-transform: uppercase;">Araya Consulting</h1>
+                <p style="margin: 0; font-weight: 600; font-size: 11px; letter-spacing: 4px; color: #c5a059;">CERTIFICATE OF PERSONALITY ANALYSIS</p>
             </div>
             
-            <div style="text-align: center; margin-bottom: 20px;">
-                <p style="font-style: italic; font-size: 14px; margin: 0; color: #777;">Diberikan kepada:</p>
-                <h2 id="cert-user-name" style="font-size: 42px; color: #1a2a6c; margin: 5px 0; font-family: 'serif'; font-weight: bold;"></h2>
-                <div style="display: inline-block; background: #1a2a6c; color: #fff; padding: 6px 30px; border-radius: 4px;">
-                    <span style="font-size: 18px; font-weight: 600;">Tipe Dominan: <span id="cert-type" style="color: #c5a059;"></span></span>
+            <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 20px;">
+                <p style="font-style: italic; font-size: 14px; margin: 0; color: #777;">Sertifikat ini diberikan kepada:</p>
+                <h2 id="cert-user-name" style="font-size: 40px; color: #1a2a6c; margin: 5px 0; font-family: 'serif'; font-weight: bold;"></h2>
+                <div style="display: inline-block; background: #1a2a6c; color: #fff; padding: 6px 30px; border-radius: 4px; border: 1px solid #c5a059;">
+                    <span style="font-size: 16px; font-weight: 600;">Tipe Dominan: <span id="cert-type" style="color: #c5a059;"></span></span>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 40px; flex-grow: 1; overflow: hidden; margin-bottom: 10px;">
-                <div style="flex: 1.2; border-right: 1px solid #eee; padding-right: 25px;">
-                    <h4 style="color: #1a2a6c; font-size: 15px; margin: 0 0 10px 0; border-bottom: 2px solid #c5a059; display: inline-block;">INTISARI KARAKTER</h4>
-                    <div id="cert-col-left" style="font-size: 12px; line-height: 1.6; text-align: justify;"></div>
+            <div style="display: flex; gap: 20px; position: relative; z-index: 1; flex-grow: 1; overflow: hidden;">
+                <div id="cert-col-left" style="flex: 1; border-right: 1px solid #eee; padding-right: 15px; font-size: 11px; line-height: 1.4; text-align: justify;"></div>
+
+                <div style="flex: 0.8; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(26,42,108,0.02); border-radius: 10px; padding: 10px;">
+                    <h4 style="margin: 0 0 10px 0; font-size: 12px; color: #1a2a6c;">Visualisasi Spektrum Karakter</h4>
+                    <canvas id="radarChart" width="250" height="250"></canvas>
                 </div>
-                <div style="flex: 1; font-size: 12px; line-height: 1.6;">
-                    <div id="cert-col-right"></div>
-                </div>
+
+                <div id="cert-col-right" style="flex: 1; font-size: 11px; line-height: 1.4; padding-left: 10px;"></div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; padding-top: 15px;">
                 <div style="font-size: 9px; color: #999;">
-                    <p>ID: <span id="cert-id" style="color:#333; font-weight:bold;"></span></p>
-                    <p>Tanggal: <span id="cert-date" style="color:#333;"></span></p>
-                    <p style="color: #1a2a6c;">arayaconsulting.github.io</p>
+                    <p>ID: <span id="cert-id" style="color:#333; font-weight:bold;"></span> | Tanggal: <span id="cert-date" style="color:#333;"></span></p>
+                    <p style="color: #1a2a6c; font-weight: bold;">arayaconsulting.github.io</p>
                 </div>
                 <div style="text-align: center; width: 220px; position: relative;">
-                    <p style="margin-bottom: 55px; font-size: 13px;">Consultant,</p>
-                    <img src="ttd.png" id="cert-signature-img" style="width: 130px; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5;" crossorigin="anonymous">
-                    <p style="font-weight: bold; font-size: 18px; color: #1a2a6c; border-top: 1px solid #333; margin: 0; padding-top: 5px;">Ali Mahfud</p>
-                    <p style="margin: 0; font-size: 10px; color: #c5a059; font-weight: 600;">Owner Araya Consulting</p>
+                    <p style="margin-bottom: 50px; font-size: 13px; color: #666;">Consultant,</p>
+                    <img src="ttd.png" id="cert-signature" style="width: 130px; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2;" crossorigin="anonymous">
+                    <p style="margin: 0; font-weight: bold; font-size: 18px; color: #1a2a6c; border-top: 1px solid #333; padding-top: 5px;">Ali Mahfud</p>
+                    <p style="margin: 0; font-size: 10px; color: #c5a059; font-weight: 600;">Founder Araya Consulting</p>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
