@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personality Plus Assessment - Araya Consulting</title>
+    <title>DISC Profile Assessment - Araya Consulting</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -15,9 +15,9 @@
 <body>
     <div class="container" id="intro-container">
         <img src="logo.png" alt="Logo Araya Consulting" class="logo">
-        <h1>Personality Plus Assessment</h1>
+        <h1>Asesmen Kepribadian DISC</h1>
         <form id="start-form">
-            <input type="text" id="user-name" placeholder="Nama Lengkap Anda" required>
+            <input type="text" id="user-name" placeholder="Masukkan Nama Lengkap" required>
             <button type="submit" id="start-button">Mulai Analisis</button>
         </form>
     </div>
@@ -27,7 +27,6 @@
         <div class="progress-bar-container"><div id="progress-bar"></div></div>
         <div id="options-container"></div>
         <div id="quiz-nav">
-            <button id="prev-button" class="hidden">Sebelumnya</button>
             <button id="next-button">Selanjutnya</button>
         </div>
     </div>
@@ -37,7 +36,7 @@
         <p id="result-description"></p>
         <div class="button-group">
             <button id="download-cert-button">Unduh Sertifikat (PDF)</button>
-            <button id="restart-button" class="btn-secondary">Beranda</button>
+            <button onclick="location.reload()" class="btn-secondary">Beranda</button>
         </div>
     </div>
 
@@ -45,7 +44,7 @@
         <div id="cert-content" style="width: 1120px; height: 790px; padding: 30px 50px; background: #fff; border: 18px solid #1a2a6c; font-family: 'Poppins', sans-serif; color: #333; position: relative; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;">
             
             <div style="position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 2px solid #c5a059; pointer-events: none;"></div>
-
+            
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.04; background-image: url('logo.png'); background-size: 140px; z-index: 0; pointer-events: none;"></div>
 
             <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 10px;">
@@ -55,7 +54,7 @@
             
             <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 10px;">
                 <p style="font-style: italic; font-size: 13px; margin: 0; color: #888;">Sertifikat ini diberikan kepada:</p>
-                <h2 id="cert-user-name" style="font-size: 44px; color: #1a2a6c; margin: 2px 0; font-family: 'serif'; font-weight: bold;"></h2>
+                <h2 id="cert-user-name" style="font-size: 44px; color: #1a2a6c; margin: 2px 0; font-family: 'serif'; font-weight: bold; text-transform: uppercase;"></h2>
                 <div style="display: inline-block; background: #1a2a6c; color: #fff; padding: 8px 35px; border-radius: 4px; border: 1px solid #c5a059;">
                     <span style="font-size: 17px; font-weight: 600;">Tipe Dominan: <span id="cert-type" style="color: #c5a059;"></span></span>
                 </div>
@@ -81,9 +80,7 @@
                 
                 <div style="text-align: center; width: 230px; position: relative;">
                     <p style="margin-bottom: 95px; font-size: 13px; color: #666; font-weight: 600;">Consultant,</p>
-                    
                     <img src="ttd.png" id="cert-signature" style="width: 100px; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5;" crossorigin="anonymous">
-                    
                     <div style="border-bottom: 1.5px solid #1a2a6c; display: inline-block; padding: 0 15px;">
                         <p style="margin: 0; font-weight: bold; font-size: 19px; color: #1a2a6c;">Ali Mahfud</p>
                     </div>
@@ -92,7 +89,6 @@
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
