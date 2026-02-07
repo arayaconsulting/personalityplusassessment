@@ -1,12 +1,17 @@
 /**
- * ARAYA CONSULTING - PERSONALITY PLUS ASSESSMENT
- * Script Engine Version: Final (Utuh & Proporsional)
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION
+ * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis
  */
+
+// --- KONFIGURASI UTAMA ---
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
+const ADMIN_WA = "6285232526003"; 
+// -------------------------
 
 const quizQuestions = [
     { question: "1. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "ADVENTUROUS - orang yang suka tantangan, hal-hal baru, tekad kuat", type: "Choleric" }, { text: "ADAPTABLE - mudah menyesuaikan diri dalam setiap situasi", type: "Phlegmatic" }, { text: "ANIMATED - penuh gairah hidup, ekspresif", type: "Sanguine" }, { text: "ANALYTICAL - suka meneliti dan logis", type: "Melancholic" }] },
     { question: "2. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "PERSISTENT - menyelesaikan pekerjaan sampai tuntas", type: "Melancholic" }, { text: "PLAYFUL - ceria, suka bercanda", type: "Sanguine" }, { text: "PERSUASIVE - meyakinkan dengan logika dan fakta", type: "Choleric" }, { text: "PEACEFUL - suasana hati damai, menghindari tantangan", type: "Phlegmatic" }] },
-    { question: "3. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SUBMISSIVE - mudah menerima pandangan orang lain", type: "Phlegmatic" }, { text: "SELF SACRIFICING - rela berkorban demi orang lain", type: "Melancholic" }, { text: "SOCIABLE - suka tampil cerdas dan menyenangkan", type: "Sanguine" }, { text: "STRONG-WILLED - berkemauan keras untuk mencapai tujuan", type: "Choleric" }] },
+    { question: "3. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SUBMISSIVE - mudah menerima pandangan orang lain", type: "Phlegmatic" }, { text: "SELF SACRIFICING - rela berkorban demi orang lain", type: "Melancholic" }, { text: "SOCIABLE - suka tampil cerdas dan menyenangkan", type: "Sanguine" }, { text: "STRONG-WILLLED - berkemauan keras untuk mencapai tujuan", type: "Choleric" }] },
     { question: "4. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "CONSIDERATE - tanggap terhadap perasaan orang lain", type: "Phlegmatic" }, { text: "CONTROLLED - dapat mengendalikan emosi", type: "Melancholic" }, { text: "COMPETITIVE - selalu ingin menang dalam setiap lomba", type: "Choleric" }, { text: "CONVINCING - meyakinkan melalui daya tarik pribadi", type: "Sanguine" }] },
     { question: "5. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "REFRESHING - menyegarkan orang lain", type: "Sanguine" }, { text: "RESPECTFUL - sopan dan menghargai orang lain", type: "Phlegmatic" }, { text: "RESERVED - menahan diri dalam ekspresi", type: "Melancholic" }, { text: "RESOURCEFUL - bertindak cepat dan efektif", type: "Choleric" }] },
     { question: "6. Dari empat pernyataan berikut, pilih SATU yang PALING mewakili diri Anda:", options: [{ text: "SATISFIED - mudah menerima keadaan", type: "Phlegmatic" }, { text: "SENSITIVE - peduli mendalam terhadap orang lain", type: "Melancholic" }, { text: "SELF-RELIANT - mandiri dan percaya kemampuan sendiri", type: "Choleric" }, { text: "SPIRITED - penuh gairah dan kegembiraan", type: "Sanguine" }] },
@@ -50,59 +55,38 @@ const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Cho
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.<br><br>
-               <b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.<br><br>
-               <b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;">
-                <b>Business & Leadership Insight:</b><br><br>
-                <b>Gaya Kepemimpinan:</b> Pemimpin yang demokratis dan inspiratif. Mereka memimpin dengan energi dan karisma.<br><br>
-                <b>Gaya Kerja & Kolaborasi:</b> Sangat baik sebagai garda depan (frontliner) atau bagian promosi. Mereka mampu mencairkan suasana tim yang kaku.<br><br>
-                <b>Panduan Komunikasi:</b> Berikan apresiasi atau pujian secara terbuka. Jika memberi kritik, lakukan secara personal dan tetap dengan nada yang menyemangati.</div>`
+        left: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.<br><br><b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang demokratis dan inspiratif. Mereka memimpin dengan energi dan karisma.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat baik sebagai garda depan (frontliner) atau bagian promosi. Mereka mampu mencairkan suasana tim yang kaku.<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi atau pujian secara terbuka. Jika memberi kritik, lakukan secara personal dan tetap dengan nada yang menyemangati.</div>`
     },
     "Choleric": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br>
-               <b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br>
-               <b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;">
-                <b>Business & Leadership Insight:</b><br><br>
-                <b>Gaya Kepemimpinan:</b> Pemimpin yang visioner dan otoriter (tegas). Fokus pada target dan efektivitas.<br><br>
-                <b>Gaya Kerja & Kolaborasi:</b> Sangat bagus untuk memimpin proyek baru atau mengejar target yang sulit. Mereka adalah eksekutor lapangan yang handal.<br><br>
-                <b>Panduan Komunikasi:</b> Bicara langsung ke poin utama (to-the-point). Hindari basa-basi yang terlalu lama dan fokuslah pada solusi atau hasil.</div>`
+        left: `<b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.<br><br><b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br><b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang visioner dan otoriter (tegas). Fokus pada target dan efektivitas.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat bagus untuk memimpin proyek baru atau mengejar target yang sulit. Mereka adalah eksekutor lapangan yang handal.<br><br><b>Panduan Komunikasi:</b> Bicara langsung ke poin utama (to-the-point). Hindari basa-basi yang terlalu lama dan fokuslah pada solusi atau hasil.</div>`
     },
     "Melancholic": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, cenderung perfeksionis yang berlebihan, dan sulit menerima perubahan mendadak.<br><br>
-               <b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.<br><br>
-               <b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;">
-                <b>Business & Leadership Insight:</b><br><br>
-                <b>Gaya Kepemimpinan:</b> Pemimpin yang terorganisir dan berbasis data. Mereka memastikan sistem berjalan sesuai standar operasi (SOP).<br><br>
-                <b>Gaya Kerja & Kolaborasi:</b> Penjaga kualitas (Quality Control) yang terbaik dalam tim. Mereka memastikan tidak ada kesalahan detail dalam pekerjaan.<br><br>
-                <b>Panduan Komunikasi:</b> Sediakan data dan fakta yang akurat. Berikan waktu bagi mereka untuk memproses informasi sebelum menuntut jawaban atau keputusan.</div>`
+        left: `<b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, cenderung perfeksionis yang berlebihan, dan sulit menerima perubahan mendadak.<br><br><b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang terorganisir dan berbasis data. Mereka memastikan sistem berjalan sesuai standar operasi (SOP).<br><br><b>Gaya Kerja & Kolaborasi:</b> Penjaga kualitas (Quality Control) yang terbaik dalam tim. Mereka memastikan tidak ada kesalahan detail dalam pekerjaan.<br><br><b>Panduan Komunikasi:</b> Sediakan data dan fakta yang akurat. Berikan waktu bagi mereka untuk memproses informasi sebelum menuntut jawaban atau keputusan.</div>`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.<br><br>
-               <b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".<br><br>
-               <b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.<br><br>
-               <b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;">
-                <b>Business & Leadership Insight:</b><br><br>
-                <b>Gaya Kepemimpinan:</b> Pemimpin yang mendukung (supportive) dan menjaga keharmonisan tim. Sangat baik dalam mendengarkan keluhan bawahan.<br><br>
-                <b>Gaya Kerja & Kolaborasi:</b> Stabilisator dalam tim. Mereka adalah "perekat" yang membuat suasana kerja tetap nyaman dan bebas stres.<br><br>
-                <b>Panduan Komunikasi:</b> Berikan instruksi yang jelas dan bertahap. Jangan mendesak mereka dengan cara yang agresif, melainkan berikan dukungan dan rasa aman.</div>`
+        left: `<b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.<br><br><b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".<br><br><b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.`,
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang mendukung (supportive) dan menjaga keharmonisan tim. Sangat baik dalam mendengarkan keluhan bawahan.<br><br><b>Gaya Kerja & Kolaborasi:</b> Stabilisator dalam tim. Mereka adalah "perekat" yang membuat suasana kerja tetap nyaman dan bebas stres.<br><br><b>Panduan Komunikasi:</b> Berikan instruksi yang jelas dan bertahap. Jangan mendesak mereka dengan cara yang agresif, melainkan berikan dukungan dan rasa aman.</div>`
     }
 };
 
 let currentQuestionIndex = 0;
 let userName = "";
+let userWA = "";
+let generatedCode = "";
 let scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
 let radarChartInstance = null;
+
+function makeUniqueCode() {
+    return "AY-" + Math.floor(100 + Math.random() * 900);
+}
 
 document.getElementById('start-form').addEventListener('submit', function(e) {
     e.preventDefault();
     userName = document.getElementById('user-name').value.trim();
+    userWA = document.getElementById('user-whatsapp').value.trim();
     document.getElementById('intro-container').classList.add('hidden');
     document.getElementById('quiz-container').classList.remove('hidden');
     showQuestion();
@@ -136,12 +120,44 @@ document.getElementById('prev-button').onclick = () => { currentQuestionIndex--;
 function showResult() {
     document.getElementById('quiz-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
+    
     scores = { "Sanguine": 0, "Choleric": 0, "Melancholic": 0, "Phlegmatic": 0 };
     quizQuestions.forEach(q => { if (q.selectedType) scores[q.selectedType]++; });
+    
     let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
     document.getElementById('result-title').textContent = `Hasil: ${personalityNames[dominant]}`;
     document.getElementById('result-description').textContent = `Halo ${userName}, peta spektrum kepribadian Anda telah terpetakan.`;
+
+    generatedCode = makeUniqueCode();
+
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+            nama: userName,
+            whatsapp: userWA,
+            tipe: personalityNames[dominant],
+            s: scores.Sanguine,
+            c: scores.Choleric,
+            m: scores.Melancholic,
+            p: scores.Phlegmatic,
+            kode: generatedCode
+        })
+    });
+
+    const waMessage = `Halo Mas Ali, saya sudah selesai tes Personality Plus dengan nama *${userName}*. Saya ingin membeli kode aktivasi untuk mendownload sertifikat.`;
+    document.getElementById('wa-link').href = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(waMessage)}`;
 }
+
+document.getElementById('unlock-button').onclick = function() {
+    const inputCode = document.getElementById('activation-code').value.trim();
+    if (inputCode.toUpperCase() === generatedCode.toUpperCase()) {
+        document.getElementById('lock-section').classList.add('hidden');
+        document.getElementById('download-section').classList.remove('hidden');
+    } else {
+        alert("Kode aktivasi salah. Silakan hubungi Mas Ali untuk mendapatkan kode aktivasi Anda.");
+    }
+};
 
 function createRadarChart(scoreData) {
     const ctx = document.getElementById('radarChart').getContext('2d');
@@ -173,10 +189,7 @@ document.getElementById('download-cert-button').onclick = async function() {
     btn.disabled = true; btn.textContent = "Proses...";
     try {
         let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-        
-        // Update Nama Peserta Kapital
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
-        
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
         document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
