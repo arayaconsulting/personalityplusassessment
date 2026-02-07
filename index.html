@@ -18,6 +18,7 @@
         <h1>Personality Plus Assessment</h1>
         <form id="start-form">
             <input type="text" id="user-name" placeholder="Nama Lengkap Anda" required>
+            <input type="tel" id="user-whatsapp" placeholder="Nomor WhatsApp (Contoh: 08123xxx)" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
             <button type="submit" id="start-button">Mulai Analisis</button>
         </form>
     </div>
@@ -34,25 +35,42 @@
 
     <div class="container hidden" id="result-container">
         <h2 id="result-title"></h2>
-        <p id="result-description"></p>
-        <div class="button-group">
-            <button id="download-cert-button">Unduh Sertifikat (PDF)</button>
-            <button id="restart-button" class="btn-secondary">Beranda</button>
+        <p id="result-description" style="margin-bottom: 20px;"></p>
+
+        <div id="lock-section" style="background: #fdf8ef; padding: 25px; border-radius: 12px; border: 2px dashed #c5a059; margin-bottom: 20px; text-align: center;">
+            <p style="font-size: 16px; font-weight: bold; color: #1a2a6c; margin-bottom: 5px;">Sertifikat Analisis Anda Sudah Siap!</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Silakan masukkan Kode Aktivasi untuk membuka akses download sertifikat premium.</p>
+            
+            <input type="text" id="activation-code" placeholder="Masukkan Kode Aktivasi" style="padding: 12px; width: 80%; border: 1px solid #ccc; border-radius: 8px; text-align: center; font-size: 16px; letter-spacing: 2px; box-sizing: border-box;">
+            <br>
+            <button id="unlock-button" style="background: #1a2a6c; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; margin-top: 15px; font-weight: 600; width: 80%;">Buka Akses Sertifikat</button>
+            
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+                <p style="font-size: 12px; color: #444;">Belum punya kode? Silakan klaim melalui:</p>
+                <a id="wa-link" href="#" target="_blank" style="display: inline-block; background: #25d366; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 10px;">
+                    Beli Kode via WhatsApp
+                </a>
+            </div>
         </div>
+
+        <div id="download-section" class="hidden">
+            <div style="background: #e7f3ef; padding: 15px; border-radius: 8px; margin-bottom: 15px; color: #2d5a27; font-weight: 600; text-align: center;">
+                ✓ Akses Dibuka! Silakan unduh hasil Anda.
+            </div>
+            <button id="download-cert-button" style="width: 100%;">Unduh Sertifikat (PDF)</button>
+        </div>
+        
+        <button id="restart-button" class="btn-secondary" style="margin-top: 10px; width: 100%;">Kembali ke Beranda</button>
     </div>
 
     <div id="certificate-wrapper" style="position: absolute; left: -9999px; top: 0;">
         <div id="cert-content" style="width: 1120px; height: 790px; padding: 30px 50px; background: #fff; border: 18px solid #1a2a6c; font-family: 'Poppins', sans-serif; color: #333; position: relative; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;">
-            
             <div style="position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 2px solid #c5a059; pointer-events: none;"></div>
-
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.04; background-image: url('logo.png'); background-size: 140px; z-index: 0; pointer-events: none;"></div>
-
             <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 10px;">
                 <img src="logo.png" style="width: 155px;" crossorigin="anonymous">
                 <p style="margin: 5px 0 0 0; font-weight: 600; font-size: 11px; letter-spacing: 4px; color: #c5a059; text-transform: uppercase;">Certificate of Personality Analysis</p>
             </div>
-            
             <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 10px;">
                 <p style="font-style: italic; font-size: 13px; margin: 0; color: #888;">Sertifikat ini diberikan kepada:</p>
                 <h2 id="cert-user-name" style="font-size: 44px; color: #1a2a6c; margin: 2px 0; font-family: 'serif'; font-weight: bold;"></h2>
@@ -60,30 +78,23 @@
                     <span style="font-size: 17px; font-weight: 600;">Tipe Dominan: <span id="cert-type" style="color: #c5a059;"></span></span>
                 </div>
             </div>
-
             <div style="display: flex; gap: 20px; position: relative; z-index: 1; flex-grow: 1; overflow: hidden; margin-bottom: 60px; margin-top: 40px;">
                 <div id="cert-col-left" style="flex: 1.1; border-right: 1px solid #eee; padding-right: 20px; font-size: 10px; line-height: 1.35; text-align: justify;"></div>
-
                 <div style="flex: 0.7; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 10px;">
                     <h4 style="margin: 0 0 5px 0; font-size: 9px; color: #1a2a6c; text-transform: uppercase; font-weight:600;">Spektrum Karakter</h4>
                     <canvas id="radarChart" width="220" height="220"></canvas>
                 </div>
-
                 <div id="cert-col-right" style="flex: 1; font-size: 10px; line-height: 1.35; padding-left: 10px;"></div>
             </div>
-
             <div style="position: absolute; bottom: 45px; left: 50px; right: 50px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 1;">
                 <div style="font-size: 9px; color: #999;">
                     <p style="margin:0;">ID: <span id="cert-id" style="color:#333; font-weight:600;"></span></p>
                     <p style="margin:0;">Tanggal: <span id="cert-date" style="color:#333;"></span></p>
                     <p style="margin:0; color: #1a2a6c; font-weight: 600;">Araya Consulting - Your Growth Partner</p>
                 </div>
-                
                 <div style="text-align: center; width: 230px; position: relative;">
                     <p style="margin-bottom: 95px; font-size: 13px; color: #666; font-weight: 600;">Consultant,</p>
-                    
                     <img src="ttd.png" id="cert-signature" style="width: 100px; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5;" crossorigin="anonymous">
-                    
                     <div style="border-bottom: 1.5px solid #1a2a6c; display: inline-block; padding: 0 15px;">
                         <p style="margin: 0; font-weight: bold; font-size: 19px; color: #1a2a6c;">Ali Mahfud</p>
                     </div>
@@ -92,7 +103,6 @@
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
