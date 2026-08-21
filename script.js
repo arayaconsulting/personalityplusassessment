@@ -59,56 +59,67 @@ const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Cho
 
 const fullNarratives = {
     "Sanguine": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.<br><br><b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.`,
-        leftBusiness: `<b>1. Pemetaan Temperamen Dasar (Personality Plus):</b><br>
-Hasil ini memotret <em>nature</em> (bawaan dasar alami), berbeda dengan instrumen DISC yang membaca respons perilaku adaptif terhadap tuntutan situasi/tekanan kerja. Tipe <b>Sanguine</b> memiliki motif dasar mencari koneksi sosial, antusiasme, dan penerimaan. Secara alami energetik, spontan, dan komunikatif.<br><br>
-<b>2. Potensi Kekuatan & Titik Kritis (Blind Spot):</b><br>
-• <i>Kekuatan:</i> Luwes mencairkan suasana tim yang kaku, cepat membangun relasi dengan mitra baru, persuasif, dan membawa optimisme ke lingkungan kerja.<br>
-• <i>Titik Kritis:</i> Rentan bosan pada rutinitas administratif/SOP, mudah terdistraksi, serta konsistensi tindak lanjut (*follow-up*) yang fluktuatif.<br><br>
-<b>3. Kecenderungan Peran & Kontribusi Alami:</b><br>
-Optimal pada fungsi komunikasi publik, relasi pelanggan, kemitraan strategis, promosi, negosiasi, dan aktivitas kreatif dinamis.<br><br>
-<b>4. Panduan Pengembangan & Pengelolaan:</b><br>
-Bantu dengan sistem pelaporan kerja (*checklist*) tertulis dan pasangkan dengan rekan kerja yang kuat dalam eksekusi detail operasional.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Dinamika Pengaruh (Influence):</b> Menggerakkan orang lain melalui daya tarik antusiasme, keterbukaan, dan inspirasi.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat efektif sebagai garda depan komunikasi organisasi dan inisiator jejaring kemitraan.<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka. Sampaikan masukan perbaikan secara personal dengan nada yang menyemangati.</div>`
+        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang antusias, ekspresif, optimis, dan membawa energi positif ke lingkungan sekitar. Memiliki dorongan alami pada interaksi sosial, fleksibilitas, dan komunikasi terbuka.<br><br>
+<b>Kekuatan Natural:</b> Cepat membangun kedekatan (rapport) dengan relasi baru, persuasif dalam menyampaikan ide, adaptif terhadap perubahan, dan efektif mencairkan ketegangan suasana kerja.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran representasi publik, promosi, negosiasi awal, penguatan keterlibatan relasi, dan fungsi-fungsi dinamis yang membutuhkan keluwesan komunikasi tatap muka.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Rentan terhadap inkonsistensi eksekusi harian, mudah terdistraksi dari target utama, serta cenderung menghindari administrasi detail dan kepatuhan alur kerja rutin.<br><br>
+<b>Saran Pengembangan:</b> Bangun kebiasaan menggunakan checklist kerja tertulis dan pasangkan dengan rekan kerja yang kuat dalam pengawalan detail operasional.`,
+
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pribadi yang antusias, ekspresif, optimis, dan membawa energi positif ke lingkungan sekitar. Memiliki dorongan alami pada interaksi sosial, fleksibilitas, dan komunikasi terbuka.<br><br>
+<b>Kekuatan Natural:</b> Cepat membangun kedekatan (rapport) dengan relasi baru, persuasif dalam menyampaikan ide, adaptif terhadap perubahan, dan efektif mencairkan ketegangan suasana kerja.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran representasi publik, promosi, negosiasi awal, penguatan keterlibatan relasi, dan fungsi-fungsi dinamis yang membutuhkan keluwesan komunikasi tatap muka.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Rentan terhadap inkonsistensi eksekusi harian, mudah terdistraksi dari target utama, serta cenderung menghindari administrasi detail dan kepatuhan alur kerja rutin.<br><br>
+<b>Saran Pengembangan:</b> Bangun kebiasaan menggunakan checklist kerja tertulis dan pasangkan dengan rekan kerja yang kuat dalam pengawalan detail operasional.`,
+
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan kerja melalui energi antusiasme, optimisme, dan kedekatan relasional.<br><br><b>Sinergi Tim Ideal:</b> Sangat memerlukan mitra kerja yang kuat dalam disiplin sistem, pengawasan administrasi, dan eksekusi tindak lanjut (follow-up).<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka dan sampaikan evaluasi perbaikan secara personal dengan nada dialogis yang menyemangati.</div>`
     },
+
     "Choleric": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.<br><br><b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br><b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
-        leftBusiness: `<b>1. Pemetaan Temperamen Dasar (Personality Plus):</b><br>
-Hasil ini memotret <em>nature</em> (bawaan dasar alami), berbeda dengan instrumen DISC yang membaca respons perilaku adaptif terhadap tuntutan situasi/tekanan kerja. Tipe <b>Choleric</b> memiliki motif dasar dorongan kontrol, pencapaian target, dan progres nyata. Secara alami mandiri, berani, dan cepat mengambil keputusan.<br><br>
-<b>2. Potensi Kekuatan & Titik Kritis (Blind Spot):</b><br>
-• <i>Kekuatan:</i> Berorientasi kuat pada hasil (*bottom-line*), tangguh di bawah tekanan kerja, pragmatis menyelesaikan kendala lapangan, dan tegas memutuskan hal krusial.<br>
-• <i>Titik Kritis:</i> Cenderung tidak sabar terhadap alur proses, rawan minim empati dalam interaksi tim, serta berisiko menjadi *bottleneck* karena enggan melepas kendali.<br><br>
-<b>3. Kecenderungan Peran & Kontribusi Alami:</b><br>
-Optimal pada peran eksekutor target terukur, inisiator penyelesaian masalah mendesak, pendorong akselerasi proyek, dan fungsi pengambilan keputusan taktis.<br><br>
-<b>4. Panduan Pengembangan & Pengelolaan:</b><br>
-Latihlah kesabaran mendengarkan masukan tim. Bangun kebiasaan menghargai kepatuhan alur kerja/SOP di samping mengejar kecepatan hasil akhir.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Dinamika Pengaruh (Dominance):</b> Menggerakkan lingkungan kerja melalui ketegasan arah, standar target tinggi, dan kecepatan eksekusi.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat efektif memecahkan kebuntuan operasional dan memimpin inisiatif di tengah situasi kritis.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke inti masalah (*to-the-point*), berbasis fakta ringkas, dan fokus pada solusi konkret.</div>`
+        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang tegas, dinamis, mandiri, dan berorientasi kuat pada pencapaian target. Memiliki dorongan alami untuk mengambil kendali, memecahkan kebuntuan, dan menghasilkan progres nyata.<br><br>
+<b>Kekuatan Natural:</b> Berani mengambil risiko terukur, cepat mengambil keputusan di bawah tekanan, pragmatis mencari solusi, dan tangguh menghadapi hambatan operasional.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran eksekutor target strategis, inisiator proyek baru, penanganan krisis/masalah darurat, dan fungsi pendorong akselerasi ritme kerja.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Cenderung tidak sabar terhadap proses bertahap, berisiko mengabaikan empati interpersonal, serta rawan memicu resistensi tim karena memaksakan standar tanpa dialog.<br><br>
+<b>Saran Pengembangan:</b> Latihlah kesabaran mendengarkan masukan sebelum memutuskan, serta hargai pentingnya kepatuhan alur sistem (SOP) di samping sekadar mengejar hasil akhir.`,
+
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pribadi yang tegas, dinamis, mandiri, dan berorientasi kuat pada pencapaian target. Memiliki dorongan alami untuk mengambil kendali, memecahkan kebuntuan, dan menghasilkan progres nyata.<br><br>
+<b>Kekuatan Natural:</b> Berani mengambil risiko terukur, cepat mengambil keputusan di bawah tekanan, pragmatis mencari solusi, dan tangguh menghadapi hambatan operasional.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran eksekutor target strategis, inisiator proyek baru, penanganan krisis/masalah darurat, dan fungsi pendorong akselerasi ritme kerja.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Cenderung tidak sabar terhadap proses bertahap, berisiko mengabaikan empati interpersonal, serta rawan memicu resistensi tim karena memaksakan standar tanpa dialog.<br><br>
+<b>Saran Pengembangan:</b> Latihlah kesabaran mendengarkan masukan sebelum memutuskan, serta hargai pentingnya kepatuhan alur sistem (SOP) di samping sekadar mengejar hasil akhir.`,
+
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan organisasi melalui ketegasan arah, standar target tinggi, dan kecepatan tindakan nyata.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan mitra kerja yang kuat dalam penataan alur SOP dan kestabilan ritme tim agar akselerasi tetap terukur.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke pokok persoalan (to-the-point), berbasis data ringkas, dan fokus pada solusi konkret.</div>`
     },
+
     "Melancholic": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, cenderung perfeksionis yang berlebihan, dan sulit menerima perubahan mendadak.<br><br><b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.`,
-        leftBusiness: `<b>1. Pemetaan Temperamen Dasar (Personality Plus):</b><br>
-Hasil ini memotret <em>nature</em> (bawaan dasar alami), berbeda dengan instrumen DISC yang membaca respons perilaku adaptif terhadap tuntutan situasi/tekanan kerja. Tipe <b>Melancholic</b> memiliki motif dasar keteraturan, kebenaran data, dan standar mutu tinggi. Secara alami reflektif, sistematis, dan teliti.<br><br>
-<b>2. Potensi Kekuatan & Titik Kritis (Blind Spot):</b><br>
-• <i>Kekuatan:</i> Sangat presisi mendeteksi celah risiko, konsisten menegakkan standar kualitas, terstruktur dalam perencanaan, dan berbasis data valid.<br>
-• <i>Titik Kritis:</i> Rentan terjebak *analysis paralysis* (terlalu lama menimbang keputusan), perfeksionisme yang memperlambat eksekusi, serta sensitif terhadap kritik.<br><br>
-<b>3. Kecenderungan Peran & Kontribusi Alami:</b><br>
-Optimal pada fungsi perancangan sistem/SOP, audit operasional, kendali mutu (*quality control*), analisis data/keuangan, riset kelayakan, dan manajemen kepatuhan.<br><br>
-<b>4. Panduan Pengembangan & Pengelolaan:</b><br>
-Terapkan prinsip *good enough to execute* pada hal-hal yang membutuhkan pengujian cepat. Berikan ruang analisis data namun dengan batas waktu keputusan yang jelas.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Dinamika Pengaruh (Compliance):</b> Memberi dampak melalui kedalaman analisis data, metodologi yang rapi, dan penegakan standar mutu baku.<br><br><b>Gaya Kerja & Kolaborasi:</b> Berperan sebagai penjaga kualitas agar seluruh proses kerja tereksekusi tanpa kesalahan teknis.<br><br><b>Panduan Komunikasi:</b> Siapkan data terstruktur, jelaskan alasan logis di balik setiap perubahan arahan, dan hindari instruksi dadakan tanpa parameter.</div>`
+        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang mendalam, analitis, terstruktur, dan memiliki standar kualitas mutu yang tinggi. Menghargai ketepatan data, logika, dan perencanaan yang matang.<br><br>
+<b>Kekuatan Natural:</b> Presisi mendeteksi celah risiko sebelum masalah terjadi, disiplin menegakkan standar kualitas, tertib administrasi, dan konsisten menjaga akurasi proses kerja.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran perancangan sistem/SOP, audit operasional, kendali mutu (quality control), mitigasi risiko, dan analisis data atau keuangan.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Rentan terjebak overthinking (terlalu lama menimbang keputusan), perfeksionisme yang memperlambat laju eksekusi, serta sensitif terhadap kritik langsung.<br><br>
+<b>Saran Pengembangan:</b> Terapkan prinsip tindakan cepat pada hal-hal yang butuh pengujian lapangan dan bangun fleksibilitas terhadap perubahan situasi yang dinamis.`,
+
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pribadi yang mendalam, analitis, terstruktur, dan memiliki standar kualitas mutu yang tinggi. Menghargai ketepatan data, logika, dan perencanaan yang matang.<br><br>
+<b>Kekuatan Natural:</b> Presisi mendeteksi celah risiko sebelum masalah terjadi, disiplin menegakkan standar kualitas, tertib administrasi, dan konsisten menjaga akurasi proses kerja.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran perancangan sistem/SOP, audit operasional, kendali mutu (quality control), mitigasi risiko, dan analisis data atau keuangan.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Rentan terjebak overthinking (terlalu lama menimbang keputusan), perfeksionisme yang memperlambat laju eksekusi, serta sensitif terhadap kritik langsung.<br><br>
+<b>Saran Pengembangan:</b> Terapkan prinsip tindakan cepat pada hal-hal yang butuh pengujian lapangan dan bangun fleksibilitas terhadap perubahan situasi yang dinamis.`,
+
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Memberi dampak melalui validitas data yang akurat, metodologi yang jelas, dan penegakan standar mutu baku.<br><br><b>Sinergi Tim Ideal:</b> Memerlukan rekan kerja yang berani mengambil keputusan cepat guna mencegah kebuntuan eksekusi.<br><br><b>Panduan Komunikasi:</b> Sediakan fakta dan data terstruktur, jelaskan alasan logis secara objektif, dan hindari instruksi mendadak tanpa parameter yang jelas.</div>`
     },
+
     "Phlegmatic": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.<br><br><b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".<br><br><b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.`,
-        leftBusiness: `<b>1. Pemetaan Temperamen Dasar (Personality Plus):</b><br>
-Hasil ini memotret <em>nature</em> (bawaan dasar alami), berbeda dengan instrumen DISC yang membaca respons perilaku adaptif terhadap tuntutan situasi/tekanan kerja. Tipe <b>Phlegmatic</b> memiliki motif dasar keharmonisan, kestabilan ritme, dan rasa aman. Secara alami tenang, sabar, akomodatif, dan konsisten.<br><br>
-<b>2. Potensi Kekuatan & Titik Kritis (Blind Spot):</b><br>
-• <i>Kekuatan:</i> Sangat loyal, stabil menjaga ritme kerja rutin harian, menjadi pendengar yang objektif, dan efektif meredam gesekan antarpribadi.<br>
-• <i>Titik Kritis:</i> Cenderung pasif memulai inisiatif baru tanpa arahan, enggan menghadapi konfrontasi langsung (menunda menegur masalah), dan lambat merespons perubahan drastis.<br><br>
-<b>3. Kecenderungan Peran & Kontribusi Alami:</b><br>
-Optimal pada peran manajemen operasional rutin, pelayanan pelanggan/klien, mediasi internal tim, koordinasi alur kerja stabil, dan fungsi pendukung organisasi.<br><br>
-<b>4. Panduan Pengembangan & Pengelolaan:</b><br>
-Latihlah keberanian bersikap asertif (tegas) dalam mengevaluasi standar kerja tim. Berikan dorongan untuk mengambil inisiatif proaktif melalui target bertahap.`,
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Dinamika Pengaruh (Steadiness):</b> Menggerakkan lingkungan kerja melalui stabilitas, konsistensi ritme, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Gaya Kerja & Kolaborasi:</b> Berfungsi sebagai perekat integrasi tim yang meredakan ketegangan dan menjaga keutuhan lingkungan kerja.<br><br><b>Panduan Komunikasi:</b> Sampaikan arahan secara runut, bertahap, dan bebas dari tekanan agresif. Ciptakan ruang aman saat meminta masukan evaluasi.</div>`
+        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang tenang, sabar, cinta damai, dan konsisten. Memiliki stabilitas emosi yang tinggi, dapat diandalkan dalam ritme rutin, dan menjunjung keharmonisan hubungan kerja.<br><br>
+<b>Kekuatan Natural:</b> Pendengar yang objektif, sangat loyal, konsisten menjaga keberlangsungan proses kerja harian, dan menjadi penengah yang efektif dalam meredam gesekan internal.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran koordinasi alur operasional rutin, pelayanan pelanggan, pemeliharaan budaya kerja tim, dan fungsi pendukung organisasi.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Cenderung pasif memulai inisiatif baru tanpa instruksi, enggan menghadapi konfrontasi langsung (menunda menegur masalah), dan lambat merespons perubahan drastis.<br><br>
+<b>Saran Pengembangan:</b> Latihlah ketegasan (asertif) dalam menyatakan batas standar kerja dan biasakan mengambil inisiatif proaktif dalam pemecahan masalah harian.`,
+
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pribadi yang tenang, sabar, cinta damai, dan konsisten. Memiliki stabilitas emosi yang tinggi, dapat diandalkan dalam ritme rutin, dan menjunjung keharmonisan hubungan kerja.<br><br>
+<b>Kekuatan Natural:</b> Pendengar yang objektif, sangat loyal, konsisten menjaga keberlangsungan proses kerja harian, dan menjadi penengah yang efektif dalam meredam gesekan internal.<br><br>
+<b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran koordinasi alur operasional rutin, pelayanan pelanggan, pemeliharaan budaya kerja tim, dan fungsi pendukung organisasi.<br><br>
+<b>Leadership & Operational Blind Spot:</b> Cenderung pasif memulai inisiatif baru tanpa instruksi, enggan menghadapi konfrontasi langsung (menunda menegur masalah), dan lambat merespons perubahan drastis.<br><br>
+<b>Saran Pengembangan:</b> Latihlah ketegasan (asertif) dalam menyatakan batas standar kerja dan biasakan mengambil inisiatif proaktif dalam pemecahan masalah harian.`,
+
+        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan melalui kestabilan ritme kerja, kesabaran, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan inisiator yang berani mendorong target baru dan akselerasi agar performa tim tidak stagnan dalam kenyamanan rutin.<br><br><b>Panduan Komunikasi:</b> Sampaikan instruksi secara runut dan terstruktur tanpa tekanan agresif. Ciptakan rasa aman saat meminta pendapat.</div>`
     }
 };
 
