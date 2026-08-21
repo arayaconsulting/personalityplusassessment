@@ -1,11 +1,15 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION
- * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (DUAL MODE: UMUM & BISNIS)
+ * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis + Deteksi Mode Bisnis
  */
 
 // --- KONFIGURASI UTAMA ---
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
 const ADMIN_WA = "6285232526003"; 
+
+// Deteksi Mode dari URL Parameter (?mode=business)
+const urlParams = new URLSearchParams(window.location.search);
+const isBusinessMode = urlParams.get('mode') === 'business';
 // -------------------------
 
 const quizQuestions = [
@@ -55,19 +59,23 @@ const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Cho
 
 const fullNarratives = {
     "Sanguine": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.<br><br><b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.`,
+        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh semangat. Mereka adalah "nyawa" dalam setiap pertemuan, sangat menyukai interaksi sosial, dan memiliki kemampuan komunikasi yang persuasif secara alami.<br><br><b>Kekuatan & Kelemahan:</b> Sangat hebat dalam membangun hubungan baru dan memotivasi orang lain. Namun, seringkali kurang teratur dalam administrasi, mudah kehilangan fokus, dan cenderung menghindari hal-hal yang terlalu teknis atau membosankan.<br><br><b>Rekomendasi Karir & Akademik:</b> Bidang Komunikasi, Marketing, Public Relations, Penjualan, atau Seni Pertunjukan.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih disiplin pada waktu dan fokus menyelesaikan satu tugas hingga tuntas sebelum berpindah ke hal lain.`,
+        leftBusiness: `<b>Karakteristik Dasar:</b> Individu yang ekstrovert, optimis, dan penuh antusiasme dalam melihat peluang pasar baru serta membangun relasi bisnis yang luas.<br><br><b>Kekuatan & Tantangan:</b> Sangat persuasif dalam pitching, branding, dan memotivasi tim. Namun, rawan kehilangan fokus pada rutinitas operasional dan detail kontrol keuangan.<br><br><b>Kecenderungan Peran & Kontribusi:</b> Optimal pada peran <em>Brand Builder</em>, Public PR, Kemitraan Strategis, dan Marketing Kreatif.<br><br><b>Saran Pengembangan Bisnis:</b> Lengkapi tim dengan eksekutor atau manajer operasional yang kuat dalam detail sistem dan follow-up harian.`,
         right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang demokratis dan inspiratif. Mereka memimpin dengan energi dan karisma.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat baik sebagai garda depan (frontliner) atau bagian promosi. Mereka mampu mencairkan suasana tim yang kaku.<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi atau pujian secara terbuka. Jika memberi kritik, lakukan secara personal dan tetap dengan nada yang menyemangati.</div>`
     },
     "Choleric": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.<br><br><b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br><b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
+        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang berorientasi pada hasil, dinamis, dan memiliki kemauan yang sangat kuat. Mereka sangat praktis, mandiri, dan tidak takut mengambil risiko untuk mencapai tujuan.<br><br><b>Kekuatan & Kelemahan:</b> Sangat cepat dalam mengambil keputusan dan mampu bekerja di bawah tekanan. Namun, terkadang terlihat tidak sabar, kurang empati terhadap perasaan orang lain, dan cenderung mendominasi.<br><br><b>Rekomendasi Karir & Akademik:</b> Manajemen, Kewirausahaan, Bidang Militer, atau posisi eksekutif yang membutuhkan pengambilan keputusan cepat.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk mendengarkan masukan orang lain dan menyadari bahwa setiap orang memiliki kecepatan kerja yang berbeda-beda.`,
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pemimpin yang berorientasi kuat pada target, dinamis, dan tegas dalam mengambil keputusan strategis di tengah ketidakpastian pasar.<br><br><b>Kekuatan & Tantangan:</b> Berani mengeksekusi ekspansi dan tahan banting. Namun, berisiko mengabaikan proses/SOP dan minim empati jika terlalu memaksakan target pada tim.<br><br><b>Kecenderungan Peran & Kontribusi:</b> Optimal pada peran <em>Visioner/Driver</em>, Akselerator Penjualan, dan Pengambil Keputusan Kunci.<br><br><b>Saran Pengembangan Bisnis:</b> Delegasikan proses teknis agar tidak menjadi bottleneck dan berikan ruang bagi tim untuk bertumbuh sesuai kapasitasnya.`,
         right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang visioner dan otoriter (tegas). Fokus pada target dan efektivitas.<br><br><b>Gaya Kerja & Kolaborasi:</b> Sangat bagus untuk memimpin proyek baru atau mengejar target yang sulit. Mereka adalah eksekutor lapangan yang handal.<br><br><b>Panduan Komunikasi:</b> Bicara langsung ke poin utama (to-the-point). Hindari basa-basi yang terlalu lama dan fokuslah pada solusi atau hasil.</div>`
     },
     "Melancholic": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, cenderung perfeksionis yang berlebihan, dan sulit menerima perubahan mendadak.<br><br><b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.`,
+        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang mendalam, analitis, dan memiliki standar kualitas yang sangat tinggi. Mereka sangat menghargai keteraturan, data, dan logika di atas segalanya.<br><br><b>Kekuatan & Kelemahan:</b> Sangat teliti dan mampu melihat potensi masalah yang diabaikan orang lain. Namun, sering terjebak dalam overthinking, cenderung perfeksionis yang berlebihan, dan sulit menerima perubahan mendadak.<br><br><b>Rekomendasi Karir & Akademik:</b> Akuntansi, Analis Data, Riset, Penulisan, Teknik, atau bidang hukum.<br><br><b>Saran Pengembangan:</b> Belajarlah untuk menerima bahwa "selesai lebih baik daripada sempurna" dan cobalah untuk lebih terbuka terhadap ide-ide yang spontan.`,
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pemikir strategis yang analitis, terstruktur, dan memiliki standar mutu tinggi dalam menjaga stabilitas fundamental bisnis.<br><br><b>Kekuatan & Tantangan:</b> Sangat presisi dalam manajemen risiko, SOP, dan audit keuangan. Namun, rentan terjebak *analysis paralysis* sehingga menunda eksekusi.<br><br><b>Kecenderungan Peran & Kontribusi:</b> Optimal pada peran <em>System Architect</em>, Pengendali Mutu (QC), dan Analisis Finansial/Data.<br><br><b>Saran Pengembangan Bisnis:</b> Terapkan prinsip <em>speed over perfection</em> untuk hal-hal yang membutuhkan pengujian pasar cepat (validasi ide).`,
         right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang terorganisir dan berbasis data. Mereka memastikan sistem berjalan sesuai standar operasi (SOP).<br><br><b>Gaya Kerja & Kolaborasi:</b> Penjaga kualitas (Quality Control) yang terbaik dalam tim. Mereka memastikan tidak ada kesalahan detail dalam pekerjaan.<br><br><b>Panduan Komunikasi:</b> Sediakan data dan fakta yang akurat. Berikan waktu bagi mereka untuk memproses informasi sebelum menuntut jawaban atau keputusan.</div>`
     },
     "Phlegmatic": {
-        left: `<b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.<br><br><b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".<br><br><b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.`,
+        leftStandard: `<b>Karakteristik Dasar:</b> Individu yang tenang, sabar, dan cinta damai. Mereka adalah pendengar yang luar biasa dan memiliki emosi yang stabil, jarang meledak-ledak.<br><br><b>Kekuatan & Kelemahan:</b> Mampu bekerja sama dengan siapa saja dan sangat handal dalam meredam konflik. Namun, seringkali kurang memiliki inisiatif, cenderung menunda pekerjaan, dan sulit berkata "tidak".<br><br><b>Rekomendasi Karir & Akademik:</b> Pendidikan (Guru/Dosen), Konseling, Administrasi, Layanan Pelanggan (CS), atau Mediator.<br><br><b>Saran Pengembangan:</b> Berlatihlah untuk lebih tegas (asertif) dalam menyatakan pendapat dan belajar untuk memulai sesuatu tanpa menunggu perintah.`,
+        leftBusiness: `<b>Karakteristik Dasar:</b> Pribadi yang stabil, tenang, dan sangat mahir menjaga keharmonisan ritme operasional serta membangun budaya kerja yang sehat.<br><br><b>Kekuatan & Tantangan:</b> Menciptakan loyalitas tim yang tinggi dan konsisten. Namun, cenderung menghindari konfrontasi tegas dan lambat dalam merombak strategi lama.<br><br><b>Kecenderungan Peran & Kontribusi:</b> Optimal pada peran <em>Integrator/Culture Keeper</em>, People Development, dan Manajemen Operasional Rutin.<br><br><b>Saran Pengembangan Bisnis:</b> Latihlah ketegasan dalam mengevaluasi tim yang *underperform* agar toleransi tidak menghambat pertumbuhan bisnis.`,
         right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Kepemimpinan:</b> Pemimpin yang mendukung (supportive) dan menjaga keharmonisan tim. Sangat baik dalam mendengarkan keluhan bawahan.<br><br><b>Gaya Kerja & Kolaborasi:</b> Stabilisator dalam tim. Mereka adalah "perekat" yang membuat suasana kerja tetap nyaman dan bebas stres.<br><br><b>Panduan Komunikasi:</b> Berikan instruksi yang jelas dan bertahap. Jangan mendesak mereka dengan cara yang agresif, melainkan berikan dukungan dan rasa aman.</div>`
     }
 };
@@ -106,6 +114,13 @@ function showQuestion() {
         container.appendChild(btn);
     });
     document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / 40) * 100}%`;
+    
+    // Tampilkan/sembunyikan tombol 'Sebelumnya'
+    if (currentQuestionIndex > 0) {
+        document.getElementById('prev-button').classList.remove('hidden');
+    } else {
+        document.getElementById('prev-button').classList.add('hidden');
+    }
 }
 
 document.getElementById('next-button').onclick = () => {
@@ -115,7 +130,12 @@ document.getElementById('next-button').onclick = () => {
     else showResult();
 };
 
-document.getElementById('prev-button').onclick = () => { currentQuestionIndex--; showQuestion(); };
+document.getElementById('prev-button').onclick = () => { 
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--; 
+        showQuestion(); 
+    }
+};
 
 function showResult() {
     document.getElementById('quiz-container').classList.add('hidden');
@@ -141,7 +161,8 @@ function showResult() {
             c: scores.Choleric,
             m: scores.Melancholic,
             p: scores.Phlegmatic,
-            kode: generatedCode
+            kode: generatedCode,
+            mode: isBusinessMode ? "Business/SBS" : "General"
         })
     });
 
@@ -191,7 +212,11 @@ document.getElementById('download-cert-button').onclick = async function() {
         let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
-        document.getElementById('cert-col-left').innerHTML = fullNarratives[dominant].left;
+        
+        // Memilih teks narasi kiri berdasarkan mode URL (?mode=business)
+        const leftContent = isBusinessMode ? fullNarratives[dominant].leftBusiness : fullNarratives[dominant].leftStandard;
+        
+        document.getElementById('cert-col-left').innerHTML = leftContent;
         document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
         document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
         document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
