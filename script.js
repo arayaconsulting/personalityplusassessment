@@ -1,5 +1,5 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE ENGINE)
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE ENGINE V3)
  * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik + Robust Multi-Mode Detection
  */
 
@@ -7,16 +7,32 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
 const ADMIN_WA = "6285232526003"; 
 
-// Fungsi Deteksi Mode yang Kebal Huruf Besar/Kecil & Variasi URL
+// Fungsi Deteksi Mode Kebal Huruf Besar/Kecil, Query Param (?mode=) & Hash (#)
 function getActiveMode() {
-    const params = new URLSearchParams(window.location.search);
-    const rawMode = (params.get('mode') || '').toLowerCase().trim();
+    const fullUrl = (window.location.search + " " + window.location.hash).toLowerCase();
     
-    if (rawMode === 'parenting' || rawMode === 'family' || rawMode === 'orangtua') return 'parenting';
-    if (rawMode === 'youth' || rawMode === 'pemuda' || rawMode === 'mahasiswa') return 'youth';
-    if (rawMode === 'business' || rawMode === 'bisnis' || rawMode === 'hcm' || rawMode === 'sbs') return 'business';
+    if (fullUrl.includes('parenting') || fullUrl.includes('family') || fullUrl.includes('orangtua')) return 'parenting';
+    if (fullUrl.includes('youth') || fullUrl.includes('pemuda') || fullUrl.includes('mahasiswa')) return 'youth';
+    if (fullUrl.includes('business') || fullUrl.includes('bisnis') || fullUrl.includes('hcm') || fullUrl.includes('sbs')) return 'business';
     return 'general';
 }
+
+// Tampilkan Indikator Mode di Halaman Awal agar tidak perlu menebak
+window.addEventListener('DOMContentLoaded', () => {
+    const activeMode = getActiveMode();
+    const introDesc = document.querySelector('#intro-container p');
+    if (introDesc) {
+        let badgeText = "Mode: Umum & Pengembangan Diri";
+        let badgeColor = "#1a2a6c";
+        if (activeMode === 'business') { badgeText = "Mode: Pengusaha & HCM"; badgeColor = "#c5a059"; }
+        else if (activeMode === 'parenting') { badgeText = "Mode: Parenting & Keluarga"; badgeColor = "#27ae60"; }
+        else if (activeMode === 'youth') { badgeText = "Mode: Pemuda & Self-Leadership"; badgeColor = "#e67e22"; }
+
+        const badge = document.createElement('div');
+        badge.innerHTML = `<span style="display:inline-block; margin-top:8px; padding:4px 12px; background:${badgeColor}; color:#fff; font-size:12px; font-weight:bold; border-radius:20px;">${badgeText}</span>`;
+        introDesc.appendChild(badge);
+    }
+});
 // -------------------------
 
 const quizQuestions = [
