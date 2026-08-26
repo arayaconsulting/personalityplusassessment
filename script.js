@@ -1,15 +1,22 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE: UMUM, BISNIS, PARENTING, & PEMUDA)
- * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis + Multi-Mode Generator
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE ENGINE)
+ * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik + Robust Multi-Mode Detection
  */
 
 // --- KONFIGURASI UTAMA ---
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
 const ADMIN_WA = "6285232526003"; 
 
-// Deteksi Mode dari URL Parameter (?mode=business, ?mode=parenting, atau ?mode=youth)
-const urlParams = new URLSearchParams(window.location.search);
-const currentMode = urlParams.get('mode'); // 'business', 'parenting', 'youth'/'pemuda', atau null (general)
+// Fungsi Deteksi Mode yang Kebal Huruf Besar/Kecil & Variasi URL
+function getActiveMode() {
+    const params = new URLSearchParams(window.location.search);
+    const rawMode = (params.get('mode') || '').toLowerCase().trim();
+    
+    if (rawMode === 'parenting' || rawMode === 'family' || rawMode === 'orangtua') return 'parenting';
+    if (rawMode === 'youth' || rawMode === 'pemuda' || rawMode === 'mahasiswa') return 'youth';
+    if (rawMode === 'business' || rawMode === 'bisnis' || rawMode === 'hcm' || rawMode === 'sbs') return 'business';
+    return 'general';
+}
 // -------------------------
 
 const quizQuestions = [
@@ -73,10 +80,10 @@ const fullNarratives = {
 
         leftParenting: `<b>Karakteristik Pengasuhan:</b> Orang tua yang hangat, ekspresif, ceria, dan mampu menghidupkan suasana rumah dengan antusiasme serta kegembiraan.<br><br>
 <b>Kekuatan Pengasuhan Natural:</b> Dekat secara emosional dengan anak, kreatif membuat suasana belajar menyenangkan, dan tidak segan memberikan pujian serta pelukan hangat.<br><br>
-<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat rumah monoton atau terlalu banyak aturan kaku. Rawan kurang konsisten menegakkan aturan harian dan suasana hati mudah terpengaruh saat rumah berantakan.<br><br>
+<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat suasana rumah kaku atau terlalu monoton. Rawan kurang konsisten menegakkan aturan harian dan suasana hati mudah terpengaruh saat rumah berantakan.<br><br>
 <b>Saran Transformasi Pola Asuh:</b> Bangun jadwal dan konsekuensi tertulis yang jelas bagi anak, serta latih ketenangan diri sebelum merespons emosi atau kerewelan anak.`,
 
-        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang energetik, spontan, optimis, dan ekspresif. Menemukan sumber energi dari interaksi sosial, ruang eksplorasi yang dinamis, serta kebebasan berekspresi.<br><br>
+        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang energetik, spontan, optimis, dan ekspresif. Menemukan sumber energi dari interaksi sosial, ruang eksplorasi dinamis, serta kebebasan berekspresi.<br><br>
 <b>Kekuatan Potensi & Keunggulan Alami:</b> Luwes beradaptasi di lingkungan baru, piawai membangun jejaring pertemanan (networking), komunikatif, dan mampu mencairkan suasana kaku di kelompok.<br><br>
 <b>Ekosistem Belajar & Tumbuh Ideal:</b> Optimal dalam aktivitas berbasis interaksi sosial, public speaking, proyek kolaboratif kreatif, kepanitiaan event/PR, dan pembelajaran visual interaktif.<br><br>
 <b>Youth Blind Spot & Jebakan Diri:</b> Rawan mengalami FOMO (mencoba semua hal namun tidak tuntas), cepat bosan pada konsistensi detail, serta mudah teralihkan oleh distraksi lingkungan.<br><br>
@@ -253,11 +260,11 @@ function showResult() {
 
     generatedCode = makeUniqueCode();
 
-    // Tentukan label mode untuk pencatatan Google Sheets
+    const activeMode = getActiveMode();
     let modeLabel = "General";
-    if (currentMode === 'business') modeLabel = "Business/HCM";
-    else if (currentMode === 'parenting') modeLabel = "Parenting/Family";
-    else if (currentMode === 'youth' || currentMode === 'pemuda') modeLabel = "Youth/Self-Development";
+    if (activeMode === 'business') modeLabel = "Business/HCM";
+    else if (activeMode === 'parenting') modeLabel = "Parenting/Family";
+    else if (activeMode === 'youth') modeLabel = "Youth/Self-Development";
 
     fetch(SCRIPT_URL, {
         method: "POST",
@@ -322,17 +329,18 @@ document.getElementById('download-cert-button').onclick = async function() {
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         
-        // Logika pemilihan narasi kiri dan kanan berdasarkan parameter mode URL
+        // Logika pemilihan narasi yang dinamis saat tombol unduh ditekan
+        const activeMode = getActiveMode();
         let leftContent = fullNarratives[dominant].leftGeneral;
         let rightContent = fullNarratives[dominant].rightBusiness;
 
-        if (currentMode === 'business') {
+        if (activeMode === 'business') {
             leftContent = fullNarratives[dominant].leftBusiness;
             rightContent = fullNarratives[dominant].rightBusiness;
-        } else if (currentMode === 'parenting') {
+        } else if (activeMode === 'parenting') {
             leftContent = fullNarratives[dominant].leftParenting;
             rightContent = fullNarratives[dominant].rightParenting;
-        } else if (currentMode === 'youth' || currentMode === 'pemuda') {
+        } else if (activeMode === 'youth') {
             leftContent = fullNarratives[dominant].leftYouth;
             rightContent = fullNarratives[dominant].rightYouth;
         }
