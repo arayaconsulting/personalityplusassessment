@@ -1,15 +1,15 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION (DUAL MODE: UMUM & BISNIS)
- * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis + Deteksi Mode Bisnis
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (TRI-MODE: UMUM, BISNIS, & PARENTING)
+ * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis + Multi-Mode Generator
  */
 
 // --- KONFIGURASI UTAMA ---
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
 const ADMIN_WA = "6285232526003"; 
 
-// Deteksi Mode dari URL Parameter (?mode=business)
+// Deteksi Mode dari URL Parameter (?mode=business atau ?mode=parenting)
 const urlParams = new URLSearchParams(window.location.search);
-const isBusinessMode = urlParams.get('mode') === 'business';
+const currentMode = urlParams.get('mode'); // 'business', 'parenting', atau null (general)
 // -------------------------
 
 const quizQuestions = [
@@ -59,7 +59,7 @@ const personalityNames = { "Sanguine": "Populer Sanguine", "Choleric": "Kuat Cho
 
 const fullNarratives = {
     "Sanguine": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang antusias, ekspresif, optimis, dan membawa energi positif ke lingkungan sekitar. Memiliki dorongan alami pada interaksi sosial, fleksibilitas, dan komunikasi terbuka.<br><br>
+        leftGeneral: `<b>Karakteristik Dasar:</b> Pribadi yang antusias, ekspresif, optimis, dan membawa energi positif ke lingkungan sekitar. Memiliki dorongan alami pada interaksi sosial, fleksibilitas, dan komunikasi terbuka.<br><br>
 <b>Kekuatan Natural:</b> Cepat membangun kedekatan (rapport) dengan relasi baru, persuasif dalam menyampaikan ide, adaptif terhadap perubahan, dan efektif mencairkan ketegangan suasana kerja.<br><br>
 <b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran representasi publik, promosi, negosiasi awal, penguatan keterlibatan relasi, dan fungsi-fungsi dinamis yang membutuhkan keluwesan komunikasi tatap muka.<br><br>
 <b>Leadership & Operational Blind Spot:</b> Rentan terhadap inkonsistensi eksekusi harian, mudah terdistraksi dari target utama, serta cenderung menghindari administrasi detail dan kepatuhan alur kerja rutin.<br><br>
@@ -71,11 +71,18 @@ const fullNarratives = {
 <b>Leadership & Operational Blind Spot:</b> Rentan terhadap inkonsistensi eksekusi harian, mudah terdistraksi dari target utama, serta cenderung menghindari administrasi detail dan kepatuhan alur kerja rutin.<br><br>
 <b>Saran Pengembangan:</b> Bangun kebiasaan menggunakan checklist kerja tertulis dan pasangkan dengan rekan kerja yang kuat dalam pengawalan detail operasional.`,
 
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan kerja melalui energi antusiasme, optimisme, dan kedekatan relasional.<br><br><b>Sinergi Tim Ideal:</b> Sangat memerlukan mitra kerja yang kuat dalam disiplin sistem, pengawasan administrasi, dan eksekusi tindak lanjut (follow-up).<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka dan sampaikan evaluasi perbaikan secara personal dengan nada dialogis yang menyemangati.</div>`
+        leftParenting: `<b>Karakteristik Pengasuhan:</b> Orang tua yang hangat, ekspresif, ceria, dan mampu menghidupkan suasana rumah dengan antusiasme serta kegembiraan.<br><br>
+<b>Kekuatan Pengasuhan Natural:</b> Dekat secara emosional dengan anak, kreatif membuat suasana belajar menyenangkan, dan tidak segan memberikan pujian serta pelukan hangat.<br><br>
+<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat rumah monoton atau terlalu banyak aturan kaku. Rawan kurang konsisten menegakkan aturan harian dan suasana hati mudah terpengaruh saat rumah berantakan.<br><br>
+<b>Saran Transformasi Pola Asuh:</b> Bangun jadwal dan konsekuensi tertulis yang jelas bagi anak, serta latih ketenangan diri sebelum merespons emosi atau kerewelan anak.`,
+
+        rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan kerja melalui energi antusiasme, optimisme, dan kedekatan relasional.<br><br><b>Sinergi Tim Ideal:</b> Sangat memerlukan mitra kerja yang kuat dalam disiplin sistem, pengawasan administrasi, dan eksekusi tindak lanjut (follow-up).<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka dan sampaikan evaluasi perbaikan secara personal dengan nada dialogis yang menyemangati.</div>`,
+
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan penerimaan tulus dan apresiasi atas usahanya, bukan hanya didengar saat suasana hati orang tua sedang baik.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Libatkan pasangan untuk mengimbangi pengawasan kedisiplinan. Hindari melonggarkan aturan anak secara sepihak tanpa kesepakatan pasangan.<br><br><b>Panduan Merespons Anak:</b> Hadirkan ketenangan sebelum berbicara dan dengarkan cerita anak sampai tuntas tanpa terburu-buru memotongnya.</div>`
     },
 
     "Choleric": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang tegas, dinamis, mandiri, dan berorientasi kuat pada pencapaian target. Memiliki dorongan alami untuk mengambil kendali, memecahkan kebuntuan, dan menghasilkan progres nyata.<br><br>
+        leftGeneral: `<b>Karakteristik Dasar:</b> Pribadi yang tegas, dinamis, mandiri, dan berorientasi kuat pada pencapaian target. Memiliki dorongan alami untuk mengambil kendali, memecahkan kebuntuan, dan menghasilkan progres nyata.<br><br>
 <b>Kekuatan Natural:</b> Berani mengambil risiko terukur, cepat mengambil keputusan di bawah tekanan, pragmatis mencari solusi, dan tangguh menghadapi hambatan operasional.<br><br>
 <b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran eksekutor target strategis, inisiator proyek baru, penanganan krisis/masalah darurat, dan fungsi pendorong akselerasi ritme kerja.<br><br>
 <b>Leadership & Operational Blind Spot:</b> Cenderung tidak sabar terhadap proses bertahap, berisiko mengabaikan empati interpersonal, serta rawan memicu resistensi tim karena memaksakan standar tanpa dialog.<br><br>
@@ -87,11 +94,18 @@ const fullNarratives = {
 <b>Leadership & Operational Blind Spot:</b> Cenderung tidak sabar terhadap proses bertahap, berisiko mengabaikan empati interpersonal, serta rawan memicu resistensi tim karena memaksakan standar tanpa dialog.<br><br>
 <b>Saran Pengembangan:</b> Latihlah kesabaran mendengarkan masukan sebelum memutuskan, serta hargai pentingnya kepatuhan alur sistem (SOP) di samping sekadar mengejar hasil akhir.`,
 
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan organisasi melalui ketegasan arah, standar target tinggi, dan kecepatan tindakan nyata.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan mitra kerja yang kuat dalam penataan alur SOP dan kestabilan ritme tim agar akselerasi tetap terukur.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke pokok persoalan (to-the-point), berbasis data ringkas, dan fokus pada solusi konkret.</div>`
+        leftParenting: `<b>Karakteristik Pengasuhan:</b> Orang tua yang tegas, berpendirian kuat, berorientasi target, dan fokus membangun kemandirian serta ketangguhan mental anak.<br><br>
+<b>Kekuatan Pengasuhan Natural:</b> Sigap melindungi keluarga di saat krisis, berani mengambil keputusan mendidik yang sulit, dan menanamkan etos kerja keras yang kuat pada anak.<br><br>
+<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat anak bergerak lambat, membantah, atau saat rencana keluarga berantakan. Rawan terjebak adu ego (*power struggle*) dan menuntut kepatuhan tanpa kompromi.<br><br>
+<b>Saran Transformasi Pola Asuh:</b> Berikan pilihan terkontrol kepada anak daripada perintah satu arah, serta dengarkan alasan dan perasaan anak sebelum menetapkan batasan.`,
+
+        rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan organisasi melalui ketegasan arah, standar target tinggi, dan kecepatan tindakan nyata.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan mitra kerja yang kuat dalam penataan alur SOP dan kestabilan ritme tim agar akselerasi tetap terukur.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke pokok persoalan (to-the-point), berbasis data ringkas, dan fokus pada solusi konkret.</div>`,
+
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan ruang untuk merasa didengar dan dihargai pendapatnya, bukan sekadar diarahkan untuk patuh.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Turunkan dominasi arah pengasuhan; sepakati pembagian peran bersama pasangan secara setara tanpa saling mendikte.<br><br><b>Panduan Merespons Anak:</b> Tahan dorongan memarahi saat anak lamban; gantikan ancaman dengan penjelasan konsekuensi logis secara tenang.</div>`
     },
 
     "Melancholic": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang mendalam, analitis, terstruktur, dan memiliki standar kualitas mutu yang tinggi. Menghargai ketepatan data, logika, dan perencanaan yang matang.<br><br>
+        leftGeneral: `<b>Karakteristik Dasar:</b> Pribadi yang mendalam, analitis, terstruktur, dan memiliki standar kualitas mutu yang tinggi. Menghargai ketepatan data, logika, dan perencanaan yang matang.<br><br>
 <b>Kekuatan Natural:</b> Presisi mendeteksi celah risiko sebelum masalah terjadi, disiplin menegakkan standar kualitas, tertib administrasi, dan konsisten menjaga akurasi proses kerja.<br><br>
 <b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran perancangan sistem/SOP, audit operasional, kendali mutu (quality control), mitigasi risiko, dan analisis data atau keuangan.<br><br>
 <b>Leadership & Operational Blind Spot:</b> Rentan terjebak overthinking (terlalu lama menimbang keputusan), perfeksionisme yang memperlambat laju eksekusi, serta sensitif terhadap kritik langsung.<br><br>
@@ -103,11 +117,18 @@ const fullNarratives = {
 <b>Leadership & Operational Blind Spot:</b> Rentan terjebak overthinking (terlalu lama menimbang keputusan), perfeksionisme yang memperlambat laju eksekusi, serta sensitif terhadap kritik langsung.<br><br>
 <b>Saran Pengembangan:</b> Terapkan prinsip tindakan cepat pada hal-hal yang butuh pengujian lapangan dan bangun fleksibilitas terhadap perubahan situasi yang dinamis.`,
 
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Memberi dampak melalui validitas data yang akurat, metodologi yang jelas, dan penegakan standar mutu baku.<br><br><b>Sinergi Tim Ideal:</b> Memerlukan rekan kerja yang berani mengambil keputusan cepat guna mencegah kebuntuan eksekusi.<br><br><b>Panduan Komunikasi:</b> Sediakan fakta dan data terstruktur, jelaskan alasan logis secara objektif, dan hindari instruksi mendadak tanpa parameter yang jelas.</div>`
+        leftParenting: `<b>Karakteristik Pengasuhan:</b> Orang tua yang mendalam, penuh pertimbangan, sangat memperhatikan detail kebutuhan tumbuh kembang, dan menjunjung keteraturan moral.<br><br>
+<b>Kekuatan Pengasuhan Natural:</b> Menyediakan kebutuhan anak secara terencana, konsisten menanamkan nilai disiplin, dan teliti mendampingi proses akademik atau keterampilan anak.<br><br>
+<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat rumah berantakan atau anak tidak tertib. Rawan perfeksionis berlebihan (*overparenting*) yang membuat anak takut berbuat salah dan cemas berlebih.<br><br>
+<b>Saran Transformasi Pola Asuh:</b> Berikan apresiasi pada proses belajar anak, serta terapkan penerimaan bahwa rumah yang sedikit berantakan adalah bagian wajar dari eksplorasi anak.`,
+
+        rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Memberi dampak melalui validitas data yang akurat, metodologi yang jelas, dan penegakan standar mutu baku.<br><br><b>Sinergi Tim Ideal:</b> Memerlukan rekan kerja yang berani mengambil keputusan cepat guna mencegah kebuntuan eksekusi.<br><br><b>Panduan Komunikasi:</b> Sediakan fakta dan data terstruktur, jelaskan alasan logis secara objektif, dan hindari instruksi mendadak tanpa parameter yang jelas.</div>`,
+
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan rasa aman dan kepastian bahwa kasih sayang orang tua tidak bersyarat pada kesempurnaan nilai atau perilaku.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Hindari mengkritik cara pasangan mengasuh anak di hadapan anak; hargai niat baik pasangan meski pendekatannya berbeda.<br><br><b>Panduan Merespons Anak:</b> Hindari kritik tajam atau ekspresi kecewa mendalam saat anak salah. Berikan ruang untuk belajar dari kesalahan tanpa penghakiman.</div>`
     },
 
     "Phlegmatic": {
-        leftStandard: `<b>Karakteristik Dasar:</b> Pribadi yang tenang, sabar, cinta damai, dan konsisten. Memiliki stabilitas emosi yang tinggi, dapat diandalkan dalam ritme rutin, dan menjunjung keharmonisan hubungan kerja.<br><br>
+        leftGeneral: `<b>Karakteristik Dasar:</b> Pribadi yang tenang, sabar, cinta damai, dan konsisten. Memiliki stabilitas emosi yang tinggi, dapat diandalkan dalam ritme rutin, dan menjunjung keharmonisan hubungan kerja.<br><br>
 <b>Kekuatan Natural:</b> Pendengar yang objektif, sangat loyal, konsisten menjaga keberlangsungan proses kerja harian, dan menjadi penengah yang efektif dalam meredam gesekan internal.<br><br>
 <b>Kecenderungan Peran & Kontribusi Alami:</b> Optimal pada peran koordinasi alur operasional rutin, pelayanan pelanggan, pemeliharaan budaya kerja tim, dan fungsi pendukung organisasi.<br><br>
 <b>Leadership & Operational Blind Spot:</b> Cenderung pasif memulai inisiatif baru tanpa instruksi, enggan menghadapi konfrontasi langsung (menunda menegur masalah), dan lambat merespons perubahan drastis.<br><br>
@@ -119,7 +140,14 @@ const fullNarratives = {
 <b>Leadership & Operational Blind Spot:</b> Cenderung pasif memulai inisiatif baru tanpa instruksi, enggan menghadapi konfrontasi langsung (menunda menegur masalah), dan lambat merespons perubahan drastis.<br><br>
 <b>Saran Pengembangan:</b> Latihlah ketegasan (asertif) dalam menyatakan batas standar kerja dan biasakan mengambil inisiatif proaktif dalam pemecahan masalah harian.`,
 
-        right: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan melalui kestabilan ritme kerja, kesabaran, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan inisiator yang berani mendorong target baru dan akselerasi agar performa tim tidak stagnan dalam kenyamanan rutin.<br><br><b>Panduan Komunikasi:</b> Sampaikan instruksi secara runut dan terstruktur tanpa tekanan agresif. Ciptakan rasa aman saat meminta pendapat.</div>`
+        leftParenting: `<b>Karakteristik Pengasuhan:</b> Orang tua yang sabar, cinta damai, menerima apa adanya, menjadi pendengar yang menenangkan, dan tidak mudah terbawa emosi meledak-ledak.<br><br>
+<b>Kekuatan Pengasuhan Natural:</b> Menciptakan suasana rumah yang aman dan bebas tekanan, tidak memaksakan kehendak, serta menjadi penengah yang adil di antara anak-anak.<br><br>
+<b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat ada konflik, teriakan, atau pertengkaran di rumah. Rawan bersikap serba membiarkan (*permissive*), kurang tegas menegakkan aturan, dan menunda mendisiplinkan anak.<br><br>
+<b>Saran Transformasi Pola Asuh:</b> Latihlah ketegasan (asertif) dalam menegakkan batasan yang disepakati, serta dampingi anak menuntaskan tanggung jawabnya secara konsisten.`,
+
+        rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan melalui kestabilan ritme kerja, kesabaran, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan inisiator yang berani mendorong target baru dan akselerasi agar performa tim tidak stagnan dalam kenyamanan rutin.<br><br><b>Panduan Komunikasi:</b> Sampaikan instruksi secara runut dan terstruktur tanpa tekanan agresif. Ciptakan rasa aman saat meminta pendapat.</div>`,
+
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan panduan yang jelas dan batasan yang tegas agar merasa aman serta memiliki arah perilaku yang pasti.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Ambil inisiatif aktif dalam menegakkan disiplin bersama agar pasangan tidak merasa memikul beban pengasuhan sendirian.<br><br><b>Panduan Merespons Anak:</b> Tetap tenang namun teguh pada aturan yang telah disepakati bersama saat anak merajuk atau menolak instruksi.</div>`
     }
 };
 
@@ -193,6 +221,11 @@ function showResult() {
 
     generatedCode = makeUniqueCode();
 
+    // Tentukan label mode untuk pencatatan Google Sheets
+    let modeLabel = "General";
+    if (currentMode === 'business') modeLabel = "Business/HCM";
+    if (currentMode === 'parenting') modeLabel = "Parenting/Family";
+
     fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
@@ -205,7 +238,7 @@ function showResult() {
             m: scores.Melancholic,
             p: scores.Phlegmatic,
             kode: generatedCode,
-            mode: isBusinessMode ? "Business/SBS" : "General"
+            mode: modeLabel
         })
     });
 
@@ -256,11 +289,20 @@ document.getElementById('download-cert-button').onclick = async function() {
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         
-        // Memilih teks narasi kiri berdasarkan mode URL (?mode=business)
-        const leftContent = isBusinessMode ? fullNarratives[dominant].leftBusiness : fullNarratives[dominant].leftStandard;
+        // Logika pemilihan narasi kiri dan kanan berdasarkan parameter mode URL
+        let leftContent = fullNarratives[dominant].leftGeneral;
+        let rightContent = fullNarratives[dominant].rightBusiness;
+
+        if (currentMode === 'business') {
+            leftContent = fullNarratives[dominant].leftBusiness;
+            rightContent = fullNarratives[dominant].rightBusiness;
+        } else if (currentMode === 'parenting') {
+            leftContent = fullNarratives[dominant].leftParenting;
+            rightContent = fullNarratives[dominant].rightParenting;
+        }
         
         document.getElementById('cert-col-left').innerHTML = leftContent;
-        document.getElementById('cert-col-right').innerHTML = fullNarratives[dominant].right;
+        document.getElementById('cert-col-right').innerHTML = rightContent;
         document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID');
         document.getElementById('cert-id').textContent = "ARAYA-" + Math.floor(Math.random() * 9000 + 1000);
 
