@@ -1,5 +1,5 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION (TRI-MODE: UMUM, BISNIS, & PARENTING)
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE: UMUM, BISNIS, PARENTING, & PEMUDA)
  * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik Otomatis + Multi-Mode Generator
  */
 
@@ -7,9 +7,9 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsJfQT1jNlUEV97vbOR3SuAFDBAz5G3cyUJSd0ceColcNbAfk9FWsGwkHkV6N5ga7x/exec"; 
 const ADMIN_WA = "6285232526003"; 
 
-// Deteksi Mode dari URL Parameter (?mode=business atau ?mode=parenting)
+// Deteksi Mode dari URL Parameter (?mode=business, ?mode=parenting, atau ?mode=youth)
 const urlParams = new URLSearchParams(window.location.search);
-const currentMode = urlParams.get('mode'); // 'business', 'parenting', atau null (general)
+const currentMode = urlParams.get('mode'); // 'business', 'parenting', 'youth'/'pemuda', atau null (general)
 // -------------------------
 
 const quizQuestions = [
@@ -76,9 +76,17 @@ const fullNarratives = {
 <b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat rumah monoton atau terlalu banyak aturan kaku. Rawan kurang konsisten menegakkan aturan harian dan suasana hati mudah terpengaruh saat rumah berantakan.<br><br>
 <b>Saran Transformasi Pola Asuh:</b> Bangun jadwal dan konsekuensi tertulis yang jelas bagi anak, serta latih ketenangan diri sebelum merespons emosi atau kerewelan anak.`,
 
+        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang energetik, spontan, optimis, dan ekspresif. Menemukan sumber energi dari interaksi sosial, ruang eksplorasi yang dinamis, serta kebebasan berekspresi.<br><br>
+<b>Kekuatan Potensi & Keunggulan Alami:</b> Luwes beradaptasi di lingkungan baru, piawai membangun jejaring pertemanan (networking), komunikatif, dan mampu mencairkan suasana kaku di kelompok.<br><br>
+<b>Ekosistem Belajar & Tumbuh Ideal:</b> Optimal dalam aktivitas berbasis interaksi sosial, public speaking, proyek kolaboratif kreatif, kepanitiaan event/PR, dan pembelajaran visual interaktif.<br><br>
+<b>Youth Blind Spot & Jebakan Diri:</b> Rawan mengalami FOMO (mencoba semua hal namun tidak tuntas), cepat bosan pada konsistensi detail, serta mudah teralihkan oleh distraksi lingkungan.<br><br>
+<b>Saran Self-Leadership:</b> Latihlah disiplin menuntaskan apa yang sudah dimulai (finisher mindset), gunakan checklist agenda harian, dan fokus pada 1-2 prioritas utama agar energi tidak terpecah.`,
+
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan kerja melalui energi antusiasme, optimisme, dan kedekatan relasional.<br><br><b>Sinergi Tim Ideal:</b> Sangat memerlukan mitra kerja yang kuat dalam disiplin sistem, pengawasan administrasi, dan eksekusi tindak lanjut (follow-up).<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka dan sampaikan evaluasi perbaikan secara personal dengan nada dialogis yang menyemangati.</div>`,
 
-        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan penerimaan tulus dan apresiasi atas usahanya, bukan hanya didengar saat suasana hati orang tua sedang baik.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Libatkan pasangan untuk mengimbangi pengawasan kedisiplinan. Hindari melonggarkan aturan anak secara sepihak tanpa kesepakatan pasangan.<br><br><b>Panduan Merespons Anak:</b> Hadirkan ketenangan sebelum berbicara dan dengarkan cerita anak sampai tuntas tanpa terburu-buru memotongnya.</div>`
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan penerimaan tulus dan apresiasi atas usahanya, bukan hanya didengar saat suasana hati orang tua sedang baik.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Libatkan pasangan untuk mengimbangi pengawasan kedisiplinan. Hindari melonggarkan aturan anak secara sepihak tanpa kesepakatan pasangan.<br><br><b>Panduan Merespons Anak:</b> Hadirkan ketenangan sebelum berbicara dan dengarkan cerita anak sampai tuntas tanpa terburu-buru memotongnya.</div>`,
+
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Growth Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penggerak antusiasme dan inisiator ide segar dalam tim; sangat efektif pada peran juru bicara kelompok atau garda depan relasi.<br><br><b>Sinergi Partner Ideal:</b> Membutuhkan rekan tim yang terstruktur, teliti, dan disiplin pada jadwal kerja untuk mengawal realisasi ide-idenya.<br><br><b>Panduan Komunikasi:</b> Sampaikan ide dengan kerangka yang lebih ringkas dan terarah. Dengarkan masukan rekan tim tanpa terburu-buru menyela pembicaraan.</div>`
     },
 
     "Choleric": {
@@ -99,9 +107,17 @@ const fullNarratives = {
 <b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat anak bergerak lambat, membantah, atau saat rencana keluarga berantakan. Rawan terjebak adu ego (*power struggle*) dan menuntut kepatuhan tanpa kompromi.<br><br>
 <b>Saran Transformasi Pola Asuh:</b> Berikan pilihan terkontrol kepada anak daripada perintah satu arah, serta dengarkan alasan dan perasaan anak sebelum menetapkan batasan.`,
 
+        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang mandiri, berpendirian teguh, dinamis, dan berorientasi hasil nyata. Didorong oleh motivasi mengatasi tantangan, mandiri, dan memecahkan hambatan.<br><br>
+<b>Kekuatan Potensi & Keunggulan Alami:</b> Berani mengambil inisiatif di tengah situasi buntu, cepat mengambil keputusan penting, tangguh menghadapi tekanan/penolakan, dan memiliki fokus target yang tajam.<br><br>
+<b>Ekosistem Belajar & Tumbuh Ideal:</b> Optimal dalam wadah kepemimpinan organisasi, perlombaan/kompetisi, proyek berbasis pemecahan masalah nyata (problem solving), dan eksekusi lapangan.<br><br>
+<b>Youth Blind Spot & Jebakan Diri:</b> Cenderung tidak sabar melihat rekan yang lamban, rawan memaksakan kehendak tanpa dialog, serta enggan mengakui kelemahan diri karena ego pembuktian diri.<br><br>
+<b>Saran Self-Leadership:</b> Latihlah kerendahan hati untuk mendengarkan masukan rekan sebaya, hargai proses bertahap, dan pahami bahwa kolaborasi membutuhkan empati bukan sekadar perintah.`,
+
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan organisasi melalui ketegasan arah, standar target tinggi, dan kecepatan tindakan nyata.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan mitra kerja yang kuat dalam penataan alur SOP dan kestabilan ritme tim agar akselerasi tetap terukur.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke pokok persoalan (to-the-point), berbasis data ringkas, dan fokus pada solusi konkret.</div>`,
 
-        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan ruang untuk merasa didengar dan dihargai pendapatnya, bukan sekadar diarahkan untuk patuh.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Turunkan dominasi arah pengasuhan; sepakati pembagian peran bersama pasangan secara setara tanpa saling mendikte.<br><br><b>Panduan Merespons Anak:</b> Tahan dorongan memarahi saat anak lamban; gantikan ancaman dengan penjelasan konsekuensi logis secara tenang.</div>`
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan ruang untuk merasa didengar dan dihargai pendapatnya, bukan sekadar diarahkan untuk patuh.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Turunkan dominasi arah pengasuhan; sepakati pembagian peran bersama pasangan secara setara tanpa saling mendikte.<br><br><b>Panduan Merespons Anak:</b> Tahan dorongan memarahi saat anak lamban; gantikan ancaman dengan penjelasan konsekuensi logis secara tenang.</div>`,
+
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Growth Insight:</b><br><br><b>Gaya Kolaborasi:</b> Pendorong akselerasi ritme kerja kelompok dan penentu arah tindakan taktis saat menghadapi tenggat waktu (deadline).<br><br><b>Sinergi Partner Ideal:</b> Memerlukan rekan tim yang sabar, analitis, dan kuat dalam manajemen risiko agar keputusan yang diambil tidak tergesa-gesa.<br><br><b>Panduan Komunikasi:</b> Sampaikan masukan dengan nada yang bersahabat. Hindari kritik yang terlalu frontal agar tidak memicu resistensi dalam relasi pertemanan.</div>`
     },
 
     "Melancholic": {
@@ -122,9 +138,17 @@ const fullNarratives = {
 <b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat rumah berantakan atau anak tidak tertib. Rawan perfeksionis berlebihan (*overparenting*) yang membuat anak takut berbuat salah dan cemas berlebih.<br><br>
 <b>Saran Transformasi Pola Asuh:</b> Berikan apresiasi pada proses belajar anak, serta terapkan penerimaan bahwa rumah yang sedikit berantakan adalah bagian wajar dari eksplorasi anak.`,
 
+        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang mendalam, analitis, tertib, dan memiliki standar mutu tinggi. Mengutamakan ketepatan data, kebenaran metodologi, dan perencanaan yang matang.<br><br>
+<b>Kekuatan Potensi & Keunggulan Alami:</b> Sangat teliti mendeteksi celah risiko, tekun menyelesaikan riset/tugas rumit, disiplin menjaga integritas data, dan konsisten pada standar kualitas karya.<br><br>
+<b>Ekosistem Belajar & Tumbuh Ideal:</b> Optimal dalam riset/karya ilmiah, analisis data, teknologi/arsitektur, perancangan sistem organisasi, administrasi keuangan, dan karya terstruktur yang menuntut presisi.<br><br>
+<b>Youth Blind Spot & Jebakan Diri:</b> Rentan terjebak overthinking, takut mencoba hal baru karena cemas berbuat salah (fear of failure), serta sangat sensitif terhadap kritik atau penolakan.<br><br>
+<b>Saran Self-Leadership:</b> Bangun pola pikir progress over perfection—bahwa kesalahan adalah bagian esensial dari proses belajar. Latihlah keberanian mengeksekusi ide tanpa menunggu kesempurnaan mutlak.`,
+
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Memberi dampak melalui validitas data yang akurat, metodologi yang jelas, dan penegakan standar mutu baku.<br><br><b>Sinergi Tim Ideal:</b> Memerlukan rekan kerja yang berani mengambil keputusan cepat guna mencegah kebuntuan eksekusi.<br><br><b>Panduan Komunikasi:</b> Sediakan fakta dan data terstruktur, jelaskan alasan logis secara objektif, dan hindari instruksi mendadak tanpa parameter yang jelas.</div>`,
 
-        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan rasa aman dan kepastian bahwa kasih sayang orang tua tidak bersyarat pada kesempurnaan nilai atau perilaku.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Hindari mengkritik cara pasangan mengasuh anak di hadapan anak; hargai niat baik pasangan meski pendekatannya berbeda.<br><br><b>Panduan Merespons Anak:</b> Hindari kritik tajam atau ekspresi kecewa mendalam saat anak salah. Berikan ruang untuk belajar dari kesalahan tanpa penghakiman.</div>`
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan rasa aman dan kepastian bahwa kasih sayang orang tua tidak bersyarat pada kesempurnaan nilai atau perilaku.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Hindari mengkritik cara pasangan mengasuh anak di hadapan anak; hargai niat baik pasangan meski pendekatannya berbeda.<br><br><b>Panduan Merespons Anak:</b> Hindari kritik tajam atau ekspresi kecewa mendalam saat anak salah. Berikan ruang untuk belajar dari kesalahan tanpa penghakiman.</div>`,
+
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Growth Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penjaga mutu (quality controller) dan perancang strategi kelompok agar karya tim tersusun secara sistematis dan minim kesalahan teknis.<br><br><b>Sinergi Partner Ideal:</b> Membutuhkan rekan tim yang berani bertindak cepat dan optimis guna menarik diri dari pusaran keraguan atau pertimbangan berlarut-larut.<br><br><b>Panduan Komunikasi:</b> Sampaikan gagasan secara terbuka tanpa takut dihakimi. Bedakan antara evaluasi terhadap karya dengan penilaian harga diri personal.</div>`
     },
 
     "Phlegmatic": {
@@ -145,9 +169,17 @@ const fullNarratives = {
 <b>Parenting Blind Spot & Pemicu Stres:</b> Tertekan saat ada konflik, teriakan, atau pertengkaran di rumah. Rawan bersikap serba membiarkan (*permissive*), kurang tegas menegakkan aturan, dan menunda mendisiplinkan anak.<br><br>
 <b>Saran Transformasi Pola Asuh:</b> Latihlah ketegasan (asertif) dalam menegakkan batasan yang disepakati, serta dampingi anak menuntaskan tanggung jawabnya secara konsisten.`,
 
+        leftYouth: `<b>Fitrah Karakter & Gaya Energi:</b> Pribadi yang tenang, sabar, cinta damai, dan konsisten. Memiliki stabilitas emosi yang matang, dapat diandalkan dalam tugas rutin, dan menjunjung keharmonisan sosial.<br><br>
+<b>Kekuatan Potensi & Keunggulan Alami:</b> Pendengar yang objektif dan suportif, setia pada komitmen tugas kelompok, tidak mudah panik saat terjadi kendala, serta piawai meredam gesekan antarteman.<br><br>
+<b>Ekosistem Belajar & Tumbuh Ideal:</b> Optimal dalam lingkungan yang kondusif bebas intimidasi, kerja sama tim yang suportif, koordinasi operasional harian, kepanitiaan logistik/sekretariat, dan mediasi.<br><br>
+<b>Youth Blind Spot & Jebakan Diri:</b> Cenderung menunda pengerjaan tugas (procrastination), pasif menunggu arahan, serta enggan menyatakan pendapat sendiri demi menghindari perdebatan.<br><br>
+<b>Saran Self-Leadership:</b> Latihlah ketegasan (asertif) dalam menyuarakan gagasan di forum, tetapkan batas waktu kerja mandiri, dan ambil inisiatif aktif tanpa menunggu perintah orang lain.`,
+
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan melalui kestabilan ritme kerja, kesabaran, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan inisiator yang berani mendorong target baru dan akselerasi agar performa tim tidak stagnan dalam kenyamanan rutin.<br><br><b>Panduan Komunikasi:</b> Sampaikan instruksi secara runut dan terstruktur tanpa tekanan agresif. Ciptakan rasa aman saat meminta pendapat.</div>`,
 
-        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan panduan yang jelas dan batasan yang tegas agar merasa aman serta memiliki arah perilaku yang pasti.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Ambil inisiatif aktif dalam menegakkan disiplin bersama agar pasangan tidak merasa memikul beban pengasuhan sendirian.<br><br><b>Panduan Merespons Anak:</b> Tetap tenang namun teguh pada aturan yang telah disepakati bersama saat anak merajuk atau menolak instruksi.</div>`
+        rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan panduan yang jelas dan batasan yang tegas agar merasa aman serta memiliki arah perilaku yang pasti.<br><br><b>Sinergi dengan Pasangan (Co-Parenting):</b> Ambil inisiatif aktif dalam menegakkan disiplin bersama agar pasangan tidak merasa memikul beban pengasuhan sendirian.<br><br><b>Panduan Merespons Anak:</b> Tetap tenang namun teguh pada aturan yang telah disepakati bersama saat anak merajuk atau menolak instruksi.</div>`,
+
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Growth Insight:</b><br><br><b>Gaya Kolaborasi:</b> Perekat soliditas kelompok yang menjaga ketenangan, meredakan ketegangan antarteman, dan konsisten menuntaskan tugas bagiannya secara terpercaya.<br><br><b>Sinergi Partner Ideal:</b> Membutuhkan inisiator yang dinamis dan bersemangat untuk memberi dorongan motivasi serta menantang potensi diri keluar dari zona nyaman.<br><br><b>Panduan Komunikasi:</b> Beranikan diri menyatakan pendapat secara santun dan terstruktur saat ada keputusan kelompok yang dirasa kurang tepat.</div>`
     }
 };
 
@@ -224,7 +256,8 @@ function showResult() {
     // Tentukan label mode untuk pencatatan Google Sheets
     let modeLabel = "General";
     if (currentMode === 'business') modeLabel = "Business/HCM";
-    if (currentMode === 'parenting') modeLabel = "Parenting/Family";
+    else if (currentMode === 'parenting') modeLabel = "Parenting/Family";
+    else if (currentMode === 'youth' || currentMode === 'pemuda') modeLabel = "Youth/Self-Development";
 
     fetch(SCRIPT_URL, {
         method: "POST",
@@ -299,6 +332,9 @@ document.getElementById('download-cert-button').onclick = async function() {
         } else if (currentMode === 'parenting') {
             leftContent = fullNarratives[dominant].leftParenting;
             rightContent = fullNarratives[dominant].rightParenting;
+        } else if (currentMode === 'youth' || currentMode === 'pemuda') {
+            leftContent = fullNarratives[dominant].leftYouth;
+            rightContent = fullNarratives[dominant].rightYouth;
         }
         
         document.getElementById('cert-col-left').innerHTML = leftContent;
