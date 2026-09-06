@@ -16,6 +16,8 @@
     <div class="container" id="intro-container">
         <img src="logo.png" alt="Logo Araya Consulting" class="logo">
         <h1>Personality Plus Assessment</h1>
+        <!-- Ditambahkan paragraf deskripsi sebagai wadah badge indikator mode -->
+        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Kenali potensi, karakter alami, dan arah perkembangan diri Anda.</p>
         <form id="start-form">
             <input type="text" id="user-name" placeholder="Nama Lengkap Anda" required>
             <input type="tel" id="user-whatsapp" placeholder="Nomor WhatsApp (Contoh: 08123xxx)" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
@@ -116,6 +118,7 @@
         <span class="wa-tooltip">Butuh bantuan? Chat di sini</span>
     </a>
 
-    <script src="script.js"></script>
+    <!-- Versi file di-cache-bust agar browser iPad wajib membaca kode JS terbaru -->
+    <script src="script.js?v=10.0"></script>
 </body>
 </html>
