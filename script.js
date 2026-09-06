@@ -1,5 +1,5 @@
 /**
- * ARAYA CONSULTING - AUTOMATIC CODE VERSION (MULTI-MODE ENGINE V3)
+ * ARAYA CONSULTING - AUTOMATIC CODE VERSION (5-MODE ENGINE: UMUM, BISNIS, PARENTING, PEMUDA, & GURU)
  * Sistem: Sinkronasi Google Sheets + Kode Aktivasi Unik + Robust Multi-Mode Detection
  */
 
@@ -11,6 +11,7 @@ const ADMIN_WA = "6285232526003";
 function getActiveMode() {
     const fullUrl = (window.location.search + " " + window.location.hash).toLowerCase();
     
+    if (fullUrl.includes('educator') || fullUrl.includes('guru') || fullUrl.includes('pendidik') || fullUrl.includes('dosen')) return 'educator';
     if (fullUrl.includes('parenting') || fullUrl.includes('family') || fullUrl.includes('orangtua')) return 'parenting';
     if (fullUrl.includes('youth') || fullUrl.includes('pemuda') || fullUrl.includes('mahasiswa')) return 'youth';
     if (fullUrl.includes('business') || fullUrl.includes('bisnis') || fullUrl.includes('hcm') || fullUrl.includes('sbs')) return 'business';
@@ -27,6 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (activeMode === 'business') { badgeText = "Mode: Pengusaha & HCM"; badgeColor = "#c5a059"; }
         else if (activeMode === 'parenting') { badgeText = "Mode: Parenting & Keluarga"; badgeColor = "#27ae60"; }
         else if (activeMode === 'youth') { badgeText = "Mode: Pemuda & Self-Leadership"; badgeColor = "#e67e22"; }
+        else if (activeMode === 'educator') { badgeText = "Mode: Guru & Pendidik"; badgeColor = "#16a085"; }
 
         const badge = document.createElement('div');
         badge.innerHTML = `<span style="display:inline-block; margin-top:8px; padding:4px 12px; background:${badgeColor}; color:#fff; font-size:12px; font-weight:bold; border-radius:20px;">${badgeText}</span>`;
@@ -105,13 +107,21 @@ const fullNarratives = {
 <b>Youth Blind Spot & Jebakan Diri:</b> Rentan sindrom FOMO (ikut semua kegiatan namun terbengkalai), cepat jenuh pada rutinitas akademis yang monoton, dan mudah terdistraksi media sosial.<br><br>
 <b>Saran Self-Leadership:</b> Tumbuhkan prinsip menuntaskan apa yang dimulai (finisher mindset). Pilih 1-2 fokus keahlian utama dan kelola waktu menggunakan agenda harian tertulis.`,
 
+        leftEducator: `<b>Gaya Mengajar Alami:</b> Guru yang ekspresif, antusias, humoris, dan pandai menghidupkan suasana kelas sehingga proses belajar tidak membosankan dan siswa merasa nyaman berinteraksi.<br><br>
+<b>Kekuatan Pedagogis Natural:</b> Cepat membangun kedekatan emosional dengan siswa, kreatif dalam menyajikan analogi menarik, dan mahir memantik keberanian siswa yang pemalu untuk berbicara di depan kelas.<br><br>
+<b>Tantangan Kelas & Pemicu Stres:</b> Tertekan bila dibebani tumpukan administrasi RPP/evaluasi yang kaku atau saat kelas pasif tanpa respons. Rawan kurang terstruktur dalam alokasi waktu jam pelajaran.<br><br>
+<b>Blind Spot Interaksi Siswa:</b> Sering secara spontan lebih memfavoritkan siswa yang aktif berbicara dan mudah melupakan tindak lanjut janji atau tugas yang pernah diberikan ke siswa.<br><br>
+<b>Saran Transformasi Pembelajaran:</b> Gunakan pengingat waktu (timer) untuk setiap modul materi, serta buat catatan rekapitulasi tugas agar evaluasi belajar tetap konsisten dan tertib.`,
+
         rightGeneral: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Personal & Social Harmony Insight:</b><br><br><b>Gaya Relasi Sosial:</b> Luwes mencairkan suasana pergaulan keluarga dan masyarakat, mudah memaafkan, serta menjadi penghidup keakraban sosial.<br><br><b>Partner Pelengkap:</b> Sangat cocok berdampingan dengan pribadi yang tenang dan teratur agar saling mengimbangi dalam perencanaan hidup.<br><br><b>Kunci Damai Batin:</b> Ruang berekspresi secara tulus tanpa dihakimi serta hubungan hangat yang saling mengapresiasi.</div>`,
 
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan kerja melalui energi antusiasme, optimisme, dan kedekatan relasional.<br><br><b>Sinergi Tim Ideal:</b> Sangat memerlukan mitra kerja yang kuat dalam disiplin sistem, pengawasan administrasi, dan eksekusi tindak lanjut (follow-up).<br><br><b>Panduan Komunikasi:</b> Berikan apresiasi secara terbuka dan sampaikan evaluasi perbaikan secara personal dengan nada dialogis yang menyemangati.</div>`,
 
         rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan penerimaan tulus dan kehadiran orang tua yang utuh, bukan hanya perhatian saat suasana hati orang tua sedang ceria atau gembira.<br><br><b>Sinergi Pasangan (Co-Parenting):</b> Libatkan pasangan untuk mengimbangi pengawasan kedisiplinan dan jadwal belajar. Hindari melonggarkan izin atau aturan anak secara sepihak di belakang pasangan.<br><br><b>Panduan Merespons Anak:</b> Berikan perhatian penuh dan dengarkan cerita anak sampai tuntas tanpa tergesa-gesa memotongnya. Tahan diri dari bereaksi spontan yang memicu keributan saat anak rewel.</div>`,
 
-        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penggerak antusiasme dan inisiator ide dalam tim; sangat efektif sebagai juru bicara kelompok atau garda depan relasi eksternal organisasi.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Organisasi kemahasiswaan/kepemudaan, komunitas kreatif, program pertukaran, atau kegiatan kepanitiaan berbasis relasi publik.<br><br><b>Panduan Komunikasi:</b> Sampaikan ide secara ringkas dan terstruktur. Latihlah mendengarkan pandangan rekan tanpa tergesa-gesa memotong pembicaraan.</div>`
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penggerak antusiasme dan inisiator ide dalam tim; sangat efektif sebagai juru bicara kelompok atau garda depan relasi eksternal organisasi.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Organisasi kemahasiswaan/kepemudaan, komunitas kreatif, program pertukaran, atau kegiatan kepanitiaan berbasis relasi publik.<br><br><b>Panduan Komunikasi:</b> Sampaikan ide secara ringkas dan terstruktur. Latihlah mendengarkan pandangan rekan tanpa tergesa-gesa memotong pembicaraan.</div>`,
+
+        rightEducator: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Teacher & Classroom Insight:</b><br><br><b>Pendekatan Siswa Beragam:</b> Berikan perhatian lebih kepada siswa pendiam (Melankolis/Plegmatis) dengan mendatangi mejanya secara personal tanpa memaksa mereka langsung tampil ke depan.<br><br><b>Blind Spot Saat Menegur:</b> Rawan memarahi siswa secara emosional sesaat, lalu setelah itu membiarkan sanksi terlupakan begitu saja sehingga siswa meremehkan ketegasan guru.<br><br><b>Disiplin Adaptif:</b> Tenangkan diri sebelum berbicara, panggil siswa secara empat mata, dan pastikan setiap konsekuensi yang telah disepakati benar-benar dijalankan tuntas.<br><br><b>Sinergi Ruang Guru:</b> Jalin kerja sama erat dengan rekan guru yang teliti dalam administrasi agar dokumen kurikulum dan berkas evaluasi sekolah selesai tepat waktu.</div>`
     },
 
     "Choleric": {
@@ -138,13 +148,21 @@ const fullNarratives = {
 <b>Youth Blind Spot & Jebakan Diri:</b> Cenderung tidak sabar pada rekan kelompok yang lamban, enggan mengakui kelemahan diri karena gengsi, dan rawan bersikap mendominasi diskusi.<br><br>
 <b>Saran Self-Leadership:</b> Bangun kerendahan hati untuk menghargai proses tim. Sadari bahwa keberhasilan jangka panjang membutuhkan kerja sama dan empati, bukan hanya kecepatan pribadi.`,
 
+        leftEducator: `<b>Gaya Mengajar Alami:</b> Guru yang tegas, lugas, berwibawa, dan sangat berorientasi pada pencapaian target belajar. Membawa dinamika kelas yang fokus, disiplin, dan terarah jelas.<br><br>
+<b>Kekuatan Pedagogis Natural:</b> Sangat handal mengendalikan ketertiban kelas, menumbuhkan etos kerja keras siswa, melatih kemandirian, dan berani mengambil tindakan cepat saat terjadi krisis belajar.<br><br>
+<b>Tantangan Kelas & Pemicu Stres:</b> Sangat tertekan bila melihat siswa bergerak lamban, menyepelekan tenggat waktu tugas, atau tidak menunjukkan daya juang dalam belajar.<br><br>
+<b>Blind Spot Interaksi Siswa:</b> Cenderung menuntut kepatuhan mutlak tanpa ruang dialog, serta gaya bicara yang terlalu tajam/frontal hingga membuat siswa merasa takut bukan termotivasi.<br><br>
+<b>Saran Transformasi Pembelajaran:</b> Berikan apresiasi pada progres usaha siswa, bukan hanya pada nilai akhir. Terapkan komunikasi dua arah sebelum menetapkan sanksi agar siswa merasa dimengerti.`,
+
         rightGeneral: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Personal & Social Harmony Insight:</b><br><br><b>Gaya Relasi Sosial:</b> Lugas, to-the-point, berfokus pada aksi nyata, dan menjadi pelindung yang sigap saat keluarga/sahabat membutuhkan pertolongan.<br><br><b>Partner Pelengkap:</b> Selaras dengan pribadi penyabar dan bijaksana yang mampu meredam ketegangan serta menghadirkan suasana sejuk.<br><br><b>Kunci Damai Batin:</b> Kebebasan mengambil keputusan hidup secara mandiri dan melihat kemajuan nyata dari ikhtiar yang dijalani.</div>`,
 
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan organisasi melalui ketegasan arah, standar target tinggi, dan kecepatan tindakan nyata.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan mitra kerja yang kuat dalam penataan alur SOP dan kestabilan ritme tim agar akselerasi tetap terukur.<br><br><b>Panduan Komunikasi:</b> Sampaikan pesan langsung ke pokok persoalan (to-the-point), berbasis data ringkas, dan fokus pada solusi konkret.</div>`,
 
         rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan ruang aman untuk menyatakan perasaannya tanpa takut langsung dihakimi, dikritik tajam, atau dimarahi secara agresif.<br><br><b>Sinergi Pasangan (Co-Parenting):</b> Turunkan kontrol dominasi di rumah. Diskusikan dan sepakati pola asuh bersama pasangan secara setara tanpa saling menyalahkan di depan anak.<br><br><b>Panduan Merespons Anak:</b> Kendalikan intonasi suara saat menegur anak. Jelaskan alasan rasional dan konsekuensi logis di balik sebuah aturan dengan nada yang tenang namun tegas.</div>`,
 
-        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Pendorong ritme kerja tim dan penentu arah taktis saat kelompok menghadapi kebuntuan atau tenggat waktu mendesak.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Inkubator bisnis muda, dewan pimpinan organisasi mahasiswa, kompetisi debat/kasus bisnis, atau proyek riset lapangan.<br><br><b>Panduan Komunikasi:</b> Sampaikan kritik secara santun dan konstruktif. Hindari nada memerintah agar relasi kolaborasi tetap terjaga hangat.</div>`
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Pendorong ritme kerja tim dan penentu arah taktis saat kelompok menghadapi kebuntuan atau tenggat waktu mendesak.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Inkubator bisnis muda, dewan pimpinan organisasi mahasiswa, kompetisi debat/kasus bisnis, atau proyek riset lapangan.<br><br><b>Panduan Komunikasi:</b> Sampaikan kritik secara santun dan konstruktif. Hindari nada memerintah agar relasi kolaborasi tetap terjaga hangat.</div>`,
+
+        rightEducator: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Teacher & Classroom Insight:</b><br><br><b>Pendekatan Siswa Beragam:</b> Pahami bahwa siswa Plegmatis dan Melankolis butuh waktu berpikir; hindari langsung melabeli mereka 'malas' hanya karena ritmenya tenang.<br><br><b>Blind Spot Saat Menegur:</b> Spontan meledak di depan kelas dan mempermalukan siswa yang berbuat salah, yang justru memicu dendam atau mogok belajar.<br><br><b>Disiplin Adaptif:</b> Panggil siswa secara privat, gunakan nada bicara rendah namun lugas, jelaskan konsekuensi logisnya, dan berikan opsi perbaikan yang terukur.<br><br><b>Sinergi Ruang Guru:</b> Berikan ruang bagi rekan guru lain untuk menyampaikan ide dalam rapat; hindari memaksakan cara kerja pribadi pada seluruh tim pendidik.</div>`
     },
 
     "Melancholic": {
@@ -171,13 +189,21 @@ const fullNarratives = {
 <b>Youth Blind Spot & Jebakan Diri:</b> Rentan overthinking hingga menunda eksekusi (analysis paralysis), takut mencoba hal baru karena cemas berbuat salah, dan mudah patah semangat oleh kritik.<br><br>
 <b>Saran Self-Leadership:</b> Biasakan berani mempublikasikan atau mencoba karya tanpa menunggu kondisi 100% sempurna. Pahami bahwa kegagalan kecil adalah tangga penting dalam pembelajaran.`,
 
+        leftEducator: `<b>Gaya Mengajar Alami:</b> Guru yang sistematis, runtut, mendalam, dan menjunjung tinggi standar kualitas materi. Mengajar dengan data akurat, persiapan matang, dan rujukan yang jelas.<br><br>
+<b>Kekuatan Pedagogis Natural:</b> Mampu membedah konsep rumit menjadi penjelasan bertahap yang detail, sangat rapi mengelola administrasi nilai, serta objektif dan adil dalam menilai hasil tugas siswa.<br><br>
+<b>Tantangan Kelas & Pemicu Stres:</b> Sangat tertekan saat kelas gaduh/tidak tertib, siswa mengerjakan tugas asal-asalan, atau ada perubahan kurikulum dan jadwal yang mendadak tanpa panduan baku.<br><br>
+<b>Blind Spot Interaksi Siswa:</b> Standar kesempurnaan yang terlalu tinggi membuat siswa takut berbuat salah, serta guru mudah merasa gagal atau kecewa mendalam saat nilai rata-rata kelas menurun.<br><br>
+<b>Saran Transformasi Pembelajaran:</b> Tanamkan growth mindset bahwa kekeliruan siswa adalah jembatan penting untuk belajar. Rayakan proses usaha siswa tanpa menuntut hasil yang instan sempurna.`,
+
         rightGeneral: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Personal & Social Harmony Insight:</b><br><br><b>Gaya Relasi Sosial:</b> Sopan, menjaga adab pergaulan, pendengar yang mendalam, dan menjalin persahabatan sejati yang setia dalam jangka panjang.<br><br><b>Partner Pelengkap:</b> Selaras dengan pribadi yang ceria dan optimis untuk membantu mencairkan ketegangan pikiran dan rasa cemas.<br><br><b>Kunci Damai Batin:</b> Suasana lingkungan yang tenang, kepastian janji, keteraturan hidup, dan ruang personal yang dihormati.</div>`,
 
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Memberi dampak melalui validitas data yang akurat, metodologi yang jelas, dan penegakan standar mutu baku.<br><br><b>Sinergi Tim Ideal:</b> Memerlukan rekan kerja yang berani mengambil keputusan cepat guna mencegah kebuntuan eksekusi.<br><br><b>Panduan Komunikasi:</b> Sediakan fakta dan data terstruktur, jelaskan alasan logis secara objektif, dan hindari instruksi mendadak tanpa parameter yang jelas.</div>`,
 
         rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan rasa aman dan kepastian bahwa cinta orang tua bersifat tanpa syarat, bukan hanya bergantung pada prestasi atau kesempurnaan perilaku anak.<br><br><b>Sinergi Pasangan (Co-Parenting):</b> Hindari mengkritik gaya pengasuhan pasangan secara berlebihan di depan anak. Hargai niat baik pasangan meski caranya berbeda dengan standar Anda.<br><br><b>Panduan Merespons Anak:</b> Hindari tatapan atau kata-kata yang menyiratkan kekecewaan mendalam saat anak berbuat salah. Berikan bimbingan perbaikan dengan penuh kelembutan.</div>`,
 
-        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penjaga mutu dan ketelitian karya kelompok agar seluruh tugas tim tersusun rapi, valid, dan minim kekeliruan teknis.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Lembaga riset kampus/ilmiah, forum studi tematik, kompetisi karya tulis ilmiah, atau divisi pengendali mutu organisasi.<br><br><b>Panduan Komunikasi:</b> Sampaikan saran perbaikan dengan nada suportif. Pisahkan evaluasi karya dari penilaian terhadap harga diri pribadi.</div>`
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Penjaga mutu dan ketelitian karya kelompok agar seluruh tugas tim tersusun rapi, valid, dan minim kekeliruan teknis.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Lembaga riset kampus/ilmiah, forum studi tematik, kompetisi karya tulis ilmiah, atau divisi pengendali mutu organisasi.<br><br><b>Panduan Komunikasi:</b> Sampaikan saran perbaikan dengan nada suportif. Pisahkan evaluasi karya dari penilaian terhadap harga diri pribadi.</div>`,
+
+        rightEducator: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Teacher & Classroom Insight:</b><br><br><b>Pendekatan Siswa Beragam:</b> Berikan ruang adaptasi bagi siswa Sanguinis yang aktif bergerak; jangan menganggap gerakan mereka semata-mata sebagai pembangkangan.<br><br><b>Blind Spot Saat Menegur:</b> Menceramahi dengan menunjukkan deretan kesalahan masa lalu secara terperinci, yang membuat siswa merasa putus asa dan dicap buruk.<br><br><b>Disiplin Adaptif:</b> Batasi poin teguran pada masalah saat ini secara ringkas, fokuskan pada cara memperbaiki tugas, dan tunjukkan keyakinan bahwa siswa mampu bangkit.<br><br><b>Sinergi Ruang Guru:</b> Salurkan keahlian presisi Anda untuk merancang kisi-kisi dan materi ajar bersama guru lain tanpa bersikap terlalu kritis terhadap kekurangan rekan kerja.</div>`
     },
 
     "Phlegmatic": {
@@ -204,13 +230,21 @@ const fullNarratives = {
 <b>Youth Blind Spot & Jebakan Diri:</b> Cenderung menunda pengerjaan tugas (procrastination), pasif menunggu arahan, dan ragu menyuarakan pendapat sendiri demi menghindari perdebatan.<br><br>
 <b>Saran Self-Leadership:</b> Latihlah keberanian bersikap asertif di forum. Tetapkan target tenggat waktu mandiri dan ambil inisiatif tindakan nyata tanpa harus menunggu disuruh.`,
 
+        leftEducator: `<b>Gaya Mengajar Alami:</b> Guru yang sabar, teduh, ramah, dan menjadi pendengar yang aman bagi seluruh siswa. Menghadirkan atmosfer kelas yang bebas dari intimidasi dan penuh penerimaan.<br><br>
+<b>Kekuatan Pedagogis Natural:</b> Mampu meredakan kecemasan belajar siswa, sabar mengulang materi sampai siswa paham, dan sangat piawai menjadi penengah yang adil saat terjadi konflik antarsiswa.<br><br>
+<b>Tantangan Kelas & Pemicu Stres:</b> Tertekan bila harus menghadapi konflik keras antarsiswa, dituntut mengambil keputusan darurat di bawah tekanan waktu, atau menghadapi kelas yang gaduh tak terkendali.<br><br>
+<b>Blind Spot Interaksi Siswa:</b> Cenderung terlalu memaklumi pelanggaran aturan (permissive), enggan menegur sejak dini karena menghindari ketegangan, sehingga kedisiplinan kelas mudah kendor.<br><br>
+<b>Saran Transformasi Pembelajaran:</b> Terapkan batasan kelas yang tegas dan jelas sejak awal. Latihlah keberanian bersikap asertif saat menegakkan tata tertib tanpa merasa bersalah pada siswa.`,
+
         rightGeneral: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Personal & Social Harmony Insight:</b><br><br><b>Gaya Relasi Sosial:</b> Ramah, bersahaja, tidak menuntut, menjadi tempat curhat yang aman, serta perekat kerukunan di keluarga maupun lingkungan tetangga.<br><br><b>Partner Pelengkap:</b> Sangat cocok berdampingan dengan pribadi yang aktif dan bersemangat untuk memotivasi langkah serta target hidupnya.<br><br><b>Kunci Damai Batin:</b> Suasana kehidupan yang rukun, bebas dari intrik perselisihan, kepastian ritme harian, dan ketenteraman batin.</div>`,
 
         rightBusiness: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Business & Leadership Insight:</b><br><br><b>Gaya Pengaruh:</b> Menggerakkan lingkungan melalui kestabilan ritme kerja, kesabaran, dan pendekatan suportif yang menjaga loyalitas tim.<br><br><b>Sinergi Tim Ideal:</b> Membutuhkan inisiator yang berani mendorong target baru dan akselerasi agar performa tim tidak stagnan dalam kenyamanan rutin.<br><br><b>Panduan Komunikasi:</b> Sampaikan instruksi secara runut dan terstruktur tanpa tekanan agresif. Ciptakan rasa aman saat meminta pendapat.</div>`,
 
         rightParenting: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Parenting & Family Insight:</b><br><br><b>Kebutuhan Emosional Anak:</b> Anak membutuhkan panduan yang jelas dan batasan yang tegas agar merasa aman serta memiliki arah perilaku yang pasti.<br><br><b>Sinergi Pasangan (Co-Parenting):</b> Ambil inisiatif aktif dalam menegakkan disiplin bersama agar pasangan tidak merasa memikul beban pengasuhan sendirian.<br><br><b>Panduan Merespons Anak:</b> Tetap tenang namun teguh pada aturan yang telah disepakati bersama saat anak merajuk atau menolak instruksi.</div>`,
 
-        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Perekat soliditas kelompok yang menjaga ketenangan, meredakan ketegangan antarteman, dan setia mengawal kelancaran tugas harian.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Komunitas sosial kemasyarakatan, divisi sekretariat/keanggotaan organisasi, atau kerja sama tim kerja yang suportif.<br><br><b>Panduan Komunikasi:</b> Beranikan diri menyatakan opini dan batas kemampuan secara santun dan jelas saat ada keputusan kelompok yang kurang tepat.</div>`
+        rightYouth: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Youth & Career Insight:</b><br><br><b>Gaya Kolaborasi:</b> Perekat soliditas kelompok yang menjaga ketenangan, meredakan ketegangan antarteman, dan setia mengawal kelancaran tugas harian.<br><br><b>Rekomendasi Ekosistem Tumbuh:</b> Komunitas sosial kemasyarakatan, divisi sekretariat/keanggotaan organisasi, atau kerja sama tim kerja yang suportif.<br><br><b>Panduan Komunikasi:</b> Beranikan diri menyatakan opini dan batas kemampuan secara santun dan jelas saat ada keputusan kelompok yang kurang tepat.</div>`,
+
+        rightEducator: `<div style="background:rgba(26,42,108,0.03); padding:10px; border-left:4px solid #c5a059;"><b>Teacher & Classroom Insight:</b><br><br><b>Pendekatan Siswa Beragam:</b> Dampingi siswa Koleris dengan memberikan tantangan peran kepemimpinan di kelas agar energinya yang meluap tersalurkan secara positif.<br><br><b>Blind Spot Saat Menegur:</b> Menunda menegur siswa yang berbuat salah karena berharap situasi akan membaik sendiri, yang justru membuat pelanggaran kian berulang.<br><br><b>Disiplin Adaptif:</b> Tegur pelanggaran seketika dengan tenang, tatap mata siswa dengan hangat namun mantap, dan terapkan konsekuensi yang adil tanpa keraguan.<br><br><b>Sinergi Ruang Guru:</b> Jadilah penyeimbang dan penyejuk di ruang dewan guru saat terjadi beda pendapat, namun tetap berani menyuarakan aspirasi pengajaran Anda.</div>`
     }
 };
 
@@ -289,6 +323,7 @@ function showResult() {
     if (activeMode === 'business') modeLabel = "Business/HCM";
     else if (activeMode === 'parenting') modeLabel = "Parenting/Family";
     else if (activeMode === 'youth') modeLabel = "Youth/Self-Development";
+    else if (activeMode === 'educator') modeLabel = "Educator/Teacher";
 
     fetch(SCRIPT_URL, {
         method: "POST",
@@ -354,7 +389,7 @@ document.getElementById('download-cert-button').onclick = async function() {
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
         document.getElementById('cert-type').textContent = personalityNames[dominant];
         
-        // Logika pemilihan narasi yang dinamis dan presisi untuk ke-4 mode
+        // Logika pemilihan narasi yang dinamis dan presisi untuk ke-5 mode
         const activeMode = getActiveMode();
         let leftContent = fullNarratives[dominant].leftGeneral;
         let rightContent = fullNarratives[dominant].rightGeneral;
@@ -368,6 +403,9 @@ document.getElementById('download-cert-button').onclick = async function() {
         } else if (activeMode === 'youth') {
             leftContent = fullNarratives[dominant].leftYouth;
             rightContent = fullNarratives[dominant].rightYouth;
+        } else if (activeMode === 'educator') {
+            leftContent = fullNarratives[dominant].leftEducator;
+            rightContent = fullNarratives[dominant].rightEducator;
         }
         
         document.getElementById('cert-col-left').innerHTML = leftContent;
