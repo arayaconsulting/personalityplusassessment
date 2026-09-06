@@ -347,7 +347,8 @@ function createRadarChart(scoreData) {
 
 document.getElementById('download-cert-button').onclick = async function() {
     const btn = this;
-    btn.disabled = true; btn.textContent = "Proses...";
+    btn.disabled = true; 
+    btn.textContent = "Proses...";
     try {
         let dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
         document.getElementById('cert-user-name').textContent = userName.toUpperCase();
@@ -378,14 +379,22 @@ document.getElementById('download-cert-button').onclick = async function() {
         await new Promise(resolve => setTimeout(resolve, 800));
 
         const canvas = await html2canvas(document.getElementById('cert-content'), {
-            scale: 2, useCORS: true, allowTaint: true, backgroundColor: "#ffffff"
+            scale: 2, 
+            useCORS: true, 
+            allowTaint: true, 
+            backgroundColor: "#ffffff"
         });
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
         pdf.save(`Sertifikat_${userName.replace(/\s+/g, '_')}.pdf`);
-    } catch (error) { console.error(error); alert("Gagal unduh sertifikat."); }
-    finally { btn.disabled = false; btn.textContent = "Unduh Sertifikat (PDF)"; }
+    } catch (error) { 
+        console.error(error); 
+        alert("Gagal unduh sertifikat."); 
+    } finally { 
+        btn.disabled = false; 
+        btn.textContent = "Unduh Sertifikat (PDF)"; 
+    }
 };
 
 document.getElementById('restart-button').onclick = () => location.reload();
